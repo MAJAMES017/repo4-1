@@ -3,7 +3,7 @@
 # Developers
 Dylan Lee - github@dylanlee3024
 
-Logan Schuman
+Logan Schuman - github@LoganSchuman
 
 Tyler Foster
 
