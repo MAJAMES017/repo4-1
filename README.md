@@ -5,7 +5,7 @@ Dylan Lee - github@dylanlee3024
 
 Logan Schuman - github@LoganSchuman
 
-Tyler Foster
+Tyler Foster - github @tylerfoster2
 
 Erik Morgan
 
