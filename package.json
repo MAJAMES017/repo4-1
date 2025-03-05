@@ -1,0 +1,27 @@
+{
+  "name": "repo4",
+  "version": "1.0.0",
+  "description": "Dylan Lee - github@dylanlee3024",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/423S25/repo4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/423S25/repo4/issues"
+  },
+  "homepage": "https://github.com/423S25/repo4#readme",
+  "dependencies": {
+    "next": "^15.1.7"
+  }
+}
