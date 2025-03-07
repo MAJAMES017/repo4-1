@@ -3,19 +3,358 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: rgba(20, 114, 120, 1);
+  --secondary-gold: rgba(161, 167, 80, 1);
+  --secondary-blue: rgba(0, 62, 82, 1);
+  --dropdown-orange: rgba(237, 185, 92, 1);
+  --faded-white-for-cards: rgba(245, 245, 245, 1);
+  --black: rgba(0, 0, 0, 1);
+  --whitebg-color: rgba(255, 255, 255, 1);
+  --primary-header-font-family: "Gotham", Helvetica;
+  --primary-header-font-weight: 700;
+  --primary-header-font-size: 32px;
+  --primary-header-letter-spacing: 0px;
+  --primary-header-line-height: normal;
+  --primary-header-font-style: normal;
+  --primary-body-copy-font-family: "Gotham", Helvetica;
+  --primary-body-copy-font-weight: 400;
+  --primary-body-copy-font-size: 12px;
+  --primary-body-copy-letter-spacing: 0px;
+  --primary-body-copy-line-height: normal;
+  --primary-body-copy-font-style: normal;
+  --primary-subheader-font-family: "Gotham", Helvetica;
+  --primary-subheader-font-weight: 700;
+  --primary-subheader-font-size: 16px;
+  --primary-subheader-letter-spacing: 0px;
+  --primary-subheader-line-height: normal;
+  --primary-subheader-font-style: normal;
+  --secondary-body-font-family: "Gotham", Helvetica;
+  --secondary-body-font-weight: 700;
+  --secondary-body-font-size: 10.5px;
+  --secondary-body-letter-spacing: 0px;
+  --secondary-body-line-height: normal;
+  --secondary-body-font-style: normal;
+  --h-2-font-family: "Gotham", Helvetica;
+  --h-2-font-weight: 700;
+  --h-2-font-size: 24px;
+  --h-2-letter-spacing: 0px;
+  --h-2-line-height: normal;
+  --h-2-font-style: normal;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; /* Optional: Ensures full height coverage */
+}
+.element-light {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  gap: 0px;
+  position: relative;
+  background-color: #ffffff;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.element-light .frame {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  justify-content: space-around;
+  padding: 0px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #115e59;
+  align-items: center;
+  gap: 0px;
+}
+
+.element-light .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 39px 0px;
+  width: 100vw; /*full viewport width*/
+  position: relative;
+  align-self: stretch;
+  max-width: 100%;/*prevents overflow*/
+  flex: 0 0 auto;
+  background-color: #115e59;
+}
+
+.element-light .horizontal-color {
+  position: relative;
+  width: 141.31px;
+  height: 50px;
+  padding-left: 25px;
+}
+
+.element-light .link-image {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  padding-right: 25px;
+  gap: 0px;
+  position: relative;
+}
+
+
+.element-light .header-copy {
+  display: flex;
+  height: 97px;
+  align-items: center;
+  justify-content: space-around;
+  gap: 50px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.element-light .heading-EMPLOYEE-wrapper {
+  display: flex;
+  min-width: 300px;
+  max-width: 500px;
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+  align-items: center;
+  gap: 10px;
+}
+
+.element-light .heading-EMPLOYEE {
+  position: relative;
+  flex: 1;
+  margin-top: -1.00px;
+  font-family: var(--primary-header-font-family);
+  font-weight: var(--primary-header-font-weight);
+  color: #000000;
+  font-size: var(--primary-header-font-size);
+  text-align: center;
+  letter-spacing: var(--primary-header-letter-spacing);
+  line-height: var(--primary-header-line-height);
+  font-style: var(--primary-header-font-style);
+}
+
+.element-light .priority-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.element-light .section-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 520px;
+  height: 220px;
+  justify-content: center;
+  padding: 0px 20px;
+  position: relative;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+}
+
+.element-light .section {
+  display: flex;
+  flex-direction: column;
+  height: 251px;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+  padding: 20px 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  margin-top: -15.50px;
+  margin-bottom: -15.50px;
+  background-color: var(--secondary-gold);
+  box-shadow: 0px 2px 4px -2px #0000001a, 0px 4px 6px -1px #0000001a;
+}
+
+.element-light .heading-QUICK {
+  position: relative;
+  align-self: stretch;
+  height: 28px;
+  margin-top: -1.00px;
+  font-family: var(--h-2-font-family);
+  font-weight: var(--h-2-font-weight);
+  color: var(--whitebg-color);
+  font-size: var(--h-2-font-size);
+  text-align: center;
+  letter-spacing: var(--h-2-letter-spacing);
+  line-height: var(--h-2-line-height);
+  white-space: nowrap;
+  font-style: var(--h-2-font-style);
+}
+
+.element-light .button {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+  height: 44px;
+  background-color: #0f766e;
+}
+
+.element-light .text-wrapper {
+  position: absolute;
+  width: 300px;
+  height: 20px;
+  top: 11px;
+  left: 0;
+  font-family: var(--primary-subheader-font-family);
+  font-weight: var(--primary-subheader-font-weight);
+  color: #ffffff;
+  font-size: var(--primary-subheader-font-size);
+  text-align: center;
+  letter-spacing: var(--primary-subheader-letter-spacing);
+  line-height: var(--primary-subheader-line-height);
+  white-space: nowrap;
+  font-style: var(--primary-subheader-font-style);
+}
+
+.element-light .div {
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  padding: 0px 0px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+}
+
+.element-light .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  font-family: var(--primary-subheader-font-family);
+  font-weight: var(--primary-subheader-font-weight);
+  color: var(--black);
+  font-size: var(--primary-subheader-font-size);
+  text-align: center;
+  letter-spacing: var(--primary-subheader-letter-spacing);
+  line-height: var(--primary-subheader-line-height);
+  white-space: nowrap;
+  font-style: var(--primary-subheader-font-style);
+}
+
+.element-light .input {
+  min-width: 280px;
+  max-width: 500px;
+  width: 100%;
+  height: 42px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #9ca3af;
+}
+
+.element-light .container {
+  display: inline-flex;
+  min-width: 240px;
+  max-width: 460px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
+  top: 12px;
+  left: 0px;
+  border: none;
+  background: none;
+  flex: 1;
+  margin-top: -1.00px;
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #9ca3af;
+  font-size: 14px;
+  text-align: left;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.element-light .p {
+  position: relative;
+  width: fit-content;
+  font-family: var(--secondary-body-font-family);
+  font-weight: var(--secondary-body-font-weight);
+  color: #6b7280;
+  font-size: var(--secondary-body-font-size);
+  text-align: center;
+  letter-spacing: var(--secondary-body-letter-spacing);
+  line-height: var(--secondary-body-line-height);
+  font-style: var(--secondary-body-font-style);
+}
+
+.element-light .overlap-group {
+  position: relative;
+  width: 471px;
+  height: 40px;
+  top: 2px;
+}
+
+.element-light .div-wrapper {
+  display: inline-flex;
+  min-width: 240px;
+  max-width: 460px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0px 0px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+.element-light .text-wrapper-3 {
+  position: relative;
+  flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: -1.00px;
+  font-family: "Gotham-Book", Helvetica;
+  font-weight: 400;
+  color: #9ca3af;
+  font-size: 14px;
+  text-align: left;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.element-light .union-wrapper {
+  display: inline-flex;
+  justify-content: flex-end;
+  padding: 10px;
+  position: absolute;
+  left: 10px;
+  top: 0;
+  left: 431px;
+  align-items: center;
+  gap: 10px;
+}
+
+.element-light .union {
+  width: 20px;
+  height: 20px;
 }

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from ".//../firebase-config"; // adjust the path if necessary
 import Link from "next/link";
+import Image from "next/image"; // Added import for Image
 
 export default function SignUp() {
     const [email, setEmail] = useState("");
@@ -37,46 +38,113 @@ export default function SignUp() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-                <h1 className="text-2xl font-semibold mb-6 text-center">Create Account</h1>
-                <form onSubmit={handleSignUp} className="space-y-4">
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        className="w-full p-2 border border-gray-400 rounded-md"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
+        <div className="min-h-screen flex flex-col bg-[var(--faded-white-for-cards)]">
+            {/* Added header from login.js */}
+            <header
+                className="w-full py-6 flex flex-col items-center"
+                style={{backgroundColor: "var(--primary)"}}
+            >
+                <Link href="/">
+                    <Image
+                        src="/logo.png"
+                        alt="HRDC Logo"
+                        width={100}
+                        height={50}
+                        priority
                     />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="w-full p-2 border border-gray-400 rounded-md"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        className="w-full p-2 border border-gray-400 rounded-md"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                    <button
-                        type="submit"
-                        className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600"
+                </Link>
+            </header>
+
+            <div className="flex-grow flex items-center justify-center">
+                <div
+                    className="p-8 rounded shadow-md w-full max-w-md"
+                    style={{backgroundColor: "var(--whitebg-color)"}}
+                >
+                    <h1
+                        className="mb-6 text-center"
+                        style={{
+                            fontFamily: "var(--h-2-font-family)",
+                            fontWeight: "var(--h-2-font-weight)",
+                            fontSize: "var(--h-2-font-size)",
+                            color: "var(--black)"
+                        }}
                     >
                         Create Account
-                    </button>
-                </form>
-                {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
-                <p className="mt-4 text-center">
-                    Already have an account?{" "}
-                    <a href="/login" className="text-blue-500 underline">Log in</a>
-                </p>
+                    </h1>
+                    <form onSubmit={handleSignUp} className="space-y-4">
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            className="w-full p-2 rounded-md"
+                            style={{
+                                backgroundColor: "var(--whitebg-color)",
+                                border: "1px solid #9ca3af"
+                            }}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            className="w-full p-2 rounded-md"
+                            style={{
+                                backgroundColor: "var(--whitebg-color)",
+                                border: "1px solid #9ca3af"
+                            }}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            className="w-full p-2 rounded-md"
+                            style={{
+                                backgroundColor: "var(--whitebg-color)",
+                                border: "1px solid #9ca3af"
+                            }}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                        <button
+                            type="submit"
+                            className="w-full text-white py-2 rounded-md hover:bg-[var(--secondary-blue)]"
+                            style={{backgroundColor: "var(--primary)"}}
+                        >
+                            Create Account
+                        </button>
+                    </form>
+                    {error && (
+                        <p
+                            className="mt-4 text-center"
+                            style={{
+                                color: "red",
+                                fontFamily: "var(--primary-body-copy-font-family)",
+                                fontSize: "var(--primary-body-copy-font-size)"
+                            }}
+                        >
+                            {error}
+                        </p>
+                    )}
+                    <p
+                        className="mt-4 text-center"
+                        style={{
+                            fontFamily: "var(--primary-body-copy-font-family)",
+                            color: "var(--black)"
+                        }}
+                    >
+                        Already have an account?{" "}
+                        <Link
+                            href="/login"
+                            className="underline"
+                            style={{color: "var(--secondary-blue)"}}
+                        >
+                            Log in
+                        </Link>
+                    </p>
+                </div>
             </div>
         </div>
     );

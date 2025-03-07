@@ -1,9 +1,4 @@
-# fly.toml app configuration file generated for hrdc-patient-field-3291 on 2025-02-21T03:15:43-07:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'hrdc-patient-field-3291'
+app = 'hrdc'
 primary_region = 'den'
 
 [build]
