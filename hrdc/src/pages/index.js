@@ -8,6 +8,8 @@ import { auth } from "../firebase-config";
 export default function Home() {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
         // Listen for auth state changes
@@ -16,6 +18,18 @@ export default function Home() {
         });
         return () => unsubscribe();
     }, []);
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        if (!searchQuery.trim()) return;
+        try {
+          const res = await fetch(`/api/search?query=${encodeURIComponent(searchQuery)}`);
+          const data = await res.json();
+          setSearchResults(data.files || []);
+        } catch (error) {
+          console.error("Search error:", error);
+        }
+      };
 
     return (
         <div className="min-h-screen flex flex-col items-center bg-[var(--whitebg-color)] text-[var(--black)] relative">
@@ -179,18 +193,44 @@ export default function Home() {
                 >
                     Can't find what you are looking for?
                 </p>
-                <input
-                    type="text"
-                    placeholder="Search documents..."
-                    className="mt-3 w-3/4 max-w-sm p-2 rounded-md text-center focus:outline-none"
-                    style={{
+
+                <form onSubmit={handleSearch} className="mt-3 flex items-center">
+                    <input
+                        type="text"
+                        placeholder="Search documents..."
+                        className="w-3/4 max-w-sm p-2 rounded-md text-center focus:outline-none"
+                        style={{
                         backgroundColor: "var(--whitebg-color)",
                         border: "1px solid #9ca3af",
-                    }}
-                />
-                <p className="text-sm mt-2" style={{color: "var(--black)"}}>
+                        }}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button
+                        type="submit"
+                        className="ml-2 py-2 px-4 rounded-md text-white hover:bg-[var(--secondary-blue)]"
+                        style={{ backgroundColor: "var(--primary)" }}
+                    >
+                    Search
+                    </button>
+                </form>
+
+                <p className="text-sm mt-2" style={{ color: "var(--black)" }}>
                     YEAR + _MONTH + _FileName
                 </p>
+
+                {searchResults.length > 0 && (
+                <div className="mt-4 text-left w-3/4 max-w-sm">
+                    <h3 className="font-semibold mb-2">Results:</h3>
+                    <ul className="list-disc pl-5">
+                        {searchResults.map((file) => (
+                            <li key={file.id}>
+                                {file.name} <span className="text-sm text-gray-600">({file.mimeType})</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                )}
             </section>
         </div>
     );
