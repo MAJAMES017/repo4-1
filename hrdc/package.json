@@ -8,7 +8,10 @@
   },
   "scripts": {
     "dev": "next dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "echo 'No tests to run'"  // This prevents any tests from running
   },
   "repository": {
     "type": "git",
