@@ -25,7 +25,13 @@
   },
   "homepage": "https://github.com/423S25/repo4#readme",
   "dependencies": {
+    "googleapis": "^144.0.0",
+    "firebase": "^11.4.0",
     "lucide-react": "^0.479.0",
     "next": "^15.1.7"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
   }
 }
+
