@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "echo 'No tests to run'"  // This prevents any tests from running
+    "test": "echo 'No tests to run'"  
   },
   "repository": {
     "type": "git",
