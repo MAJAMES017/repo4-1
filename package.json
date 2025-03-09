@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/423S25/repo4#readme",
   "dependencies": {
+    "lucide-react": "^0.479.0",
     "next": "^15.1.7"
   }
 }
