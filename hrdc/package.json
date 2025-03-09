@@ -1,26 +1,28 @@
 {
-  "name": "hrdc",
-  "version": "0.1.0",
-  "private": true,
+  "name": "repo4",
+  "version": "1.0.0",
+  "description": "Dylan Lee - github@dylanlee3024",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/423S25/repo4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/423S25/repo4/issues"
+  },
+  "homepage": "https://github.com/423S25/repo4#readme",
   "dependencies": {
-    "firebase": "^11.4.0",
-    "googleapis": "^144.0.0",
-    "next": "^15.1.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@flydotio/dockerfile": "^0.7.8",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.6",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1"
+    "lucide-react": "^0.479.0",
+    "next": "^15.1.7"
   }
 }
