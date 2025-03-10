@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "echo 'No tests to run'"  
+    "test": "echo 'No tests to run'"
   },
   "repository": {
     "type": "git",
@@ -25,13 +25,15 @@
   },
   "homepage": "https://github.com/423S25/repo4#readme",
   "dependencies": {
-    "googleapis": "^144.0.0",
+    "autoprefixer": "^10.4.21",
     "firebase": "^11.4.0",
+    "googleapis": "^144.0.0",
     "lucide-react": "^0.479.0",
-    "next": "^15.1.7"
+    "next": "^15.1.7",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.0.12"
   },
   "devDependencies": {
     "eslint": "^9.0.0"
   }
 }
-
