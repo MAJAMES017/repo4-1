@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/423S25/repo4#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "@shadcn/ui": "^0.0.4",
     "firebase": "^11.4.0",
     "googleapis": "^144.0.0",
     "lucide-react": "^0.479.0",

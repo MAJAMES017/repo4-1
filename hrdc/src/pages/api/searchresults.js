@@ -192,9 +192,9 @@ export default function SearchResults() {
             ))}
           </ul>
         ) : (
-          <p style={{ color: "red", textAlign: "center" }}>
+          <div style={{ color: "red", textAlign: "center" }}>
             No files found.
-          </p>
+          </div>
         )}
       </div>
     </div>

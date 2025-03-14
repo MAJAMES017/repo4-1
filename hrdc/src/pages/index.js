@@ -166,7 +166,7 @@ export default function Home() {
             </section>
 
             <section className="mt-10 text-center">
-                <p
+                <div
                     className="font-medium"
                     style={{
                         color: "var(--black)",
@@ -179,7 +179,7 @@ export default function Home() {
                     }}
                 >
                     Can't find what you are looking for?
-                </p>
+                </div>
                 <SearchResults />
             </section>
         </div>

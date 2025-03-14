@@ -12,7 +12,7 @@ export default function Profile() {
       <div className="bg-white shadow-lg rounded-lg p-8 w-3/4 max-w-md text-center">
        
         <h1 className="text-2xl font-semibold text-teal-800">{user.name}</h1>
-        <p className="text-gray-600 mt-2">Employee Profile</p>
+        <div className="text-gray-600 mt-2">Employee Profile</div>
 
       
         <div className="mt-6">

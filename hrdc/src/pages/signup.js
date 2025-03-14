@@ -117,7 +117,7 @@ export default function SignUp() {
                         </button>
                     </form>
                     {error && (
-                        <p
+                        <div
                             className="mt-4 text-center"
                             style={{
                                 color: "red",
@@ -126,9 +126,9 @@ export default function SignUp() {
                             }}
                         >
                             {error}
-                        </p>
+                        </div>
                     )}
-                    <p
+                    <div
                         className="mt-4 text-center"
                         style={{
                             fontFamily: "var(--primary-body-copy-font-family)",
@@ -143,7 +143,7 @@ export default function SignUp() {
                         >
                             Log in
                         </Link>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
