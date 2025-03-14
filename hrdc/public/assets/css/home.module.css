@@ -1,71 +1,55 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Merriweather:300,700,300italic,700italic|Source+Sans+Pro:900");
 
+
 /*
 	Massively by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-html, body, div, span, applet, object,
-iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
-pre, a, abbr, acronym, address, big, cite,
-code, del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var, b,
-u, i, center, dl, dt, dd, ol, ul, li, fieldset,
-form, label, legend, table, caption, tbody,
-tfoot, thead, tr, th, td, article, aside,
-canvas, details, embed, figure, figcaption,
-footer, header, hgroup, menu, nav, output, ruby,
-section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;}
 
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;}
 
-body {
+.home {
 	line-height: 1;
+	background-color: #2a8027;
+	font-family: "Merriweather", Georgia, serif;
+	-webkit-text-size-adjust: none;
 }
 
-ol, ul {
+
+
+.home ol, .home ul {
 	list-style: none;
 }
 
-blockquote, q {
+.home blockquote, .home q {
 	quotes: none;
 }
 
-	blockquote:before, blockquote:after, q:before, q:after {
+.home blockquote:before, .home blockquote:after, .home q:before, .home q:after {
 		content: '';
 		content: none;
 	}
 
-table {
+	.home table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
 
-body {
-	-webkit-text-size-adjust: none;
-}
 
-mark {
+
+.home mark {
 	background-color: transparent;
 	color: inherit;
 }
 
-input::-moz-focus-inner {
+.home input::-moz-focus-inner {
 	border: 0;
 	padding: 0;
 }
 
-input, select, textarea {
+.home input, .home select, .home textarea {
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	-ms-appearance: none;
@@ -78,29 +62,27 @@ input, select, textarea {
 		width: device-width;
 	}
 
-	body {
+	.home body {
 		-ms-overflow-style: scrollbar;
 	}
 
 	@media screen and (max-width: 480px) {
 
-		html, body {
+		.home html, .home body {
 			min-width: 320px;
 		}
 
 	}
 
-	html {
+	.home html {
 		box-sizing: border-box;
 	}
 
-	*, *:before, *:after {
+	.home *, .home *:before, .home *:after {
 		box-sizing: inherit;
 	}
 
-	body {
-		background: linear-gradient(to bottom, #006400, #90ee90);
-	}
+
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
 			-moz-animation: none !important;
@@ -115,13 +97,13 @@ input, select, textarea {
 
 /* Type */
 
-	html {
+.home html {
 		font-size: 16pt;
 	}
 
 		@media screen and (max-width: 1680px) {
 
-			html {
+			.home html {
 				font-size: 12pt;
 			}
 
@@ -129,7 +111,7 @@ input, select, textarea {
 
 		@media screen and (max-width: 1280px) {
 
-			html {
+			.home html {
 				font-size: 11pt;
 			}
 
@@ -137,24 +119,24 @@ input, select, textarea {
 
 		@media screen and (max-width: 360px) {
 
-			html {
+			.home html {
 				font-size: 10pt;
 			}
 
 		}
 
-	body {
+	.home body {
 		color: #212931;
 	}
 
-	body, input, select, textarea {
+	.home body, .home input, .home select, .home textarea {
 		font-family: "Merriweather", Georgia, serif;
 		font-weight: 300;
 		font-size: 1rem;
 		line-height: 2.375;
 	}
 
-	a {
+	.home a {
 		-moz-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 		-webkit-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 		-ms-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -163,24 +145,24 @@ input, select, textarea {
 		text-decoration: none;
 	}
 
-		a:hover {
+	.home a:hover {
 			border-bottom-color: transparent;
 		}
 
-	strong, b {
+		.home strong, .home b {
 		font-weight: 600;
 	}
 
-	em, i {
+	.home em, .home i {
 		font-style: italic;
 	}
 
-	p {
+	.home p {
 		text-align: justify;
 		margin: 0 0 2rem 0;
 	}
 
-	h1, h2, h3, h4, h5, h6 {
+	.home h1, .home h2, .home h3, .home h4, .home h5, .home h6 {
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-weight: 900;
 		line-height: 1.5;
@@ -189,61 +171,61 @@ input, select, textarea {
 		margin: 0 0 1rem 0;
 	}
 
-		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	.home h1 a, .home h2 a, .home h3 a, .home h4 a, .home h5 a, .home h6 a {
 			border-bottom: 0;
 			color: inherit;
 			text-decoration: none;
 		}
 
-	h1 {
+		.home h1 {
 		font-size: 4rem;
 		line-height: 1.1;
 		margin: 0 0 2rem 0;
 	}
 
-	h2 {
+	.home h2 {
 		font-size: 1.75rem;
 		line-height: 1.3;
 		margin: 0 0 1.5rem 0;
 	}
 
-	h3 {
+	.home h3 {
 		font-size: 1.25rem;
 		margin: 0 0 1.5rem 0;
 	}
 
-	h4 {
+	.home h4 {
 		font-size: 1rem;
 	}
 
-	h5 {
+	.home h5 {
 		font-size: 0.9rem;
 	}
 
-	h6 {
+	.home h6 {
 		font-size: 0.8rem;
 	}
 
-	sub {
+	.home sub {
 		font-size: 0.8rem;
 		position: relative;
 		top: 0.5rem;
 	}
 
-	sup {
+	.home sup {
 		font-size: 0.8rem;
 		position: relative;
 		top: -0.5rem;
 	}
 
-	blockquote {
+	.home blockquote {
 		border-left: solid 4px;
 		font-style: italic;
 		margin: 0 0 2rem 0;
 		padding: 0.5rem 0 0.5rem 2rem;
 	}
 
-	code {
+	.home code {
 		border: solid 2px;
 		font-family: "Courier New", monospace;
 		font-size: 0.9rem;
@@ -251,21 +233,21 @@ input, select, textarea {
 		padding: 0.25rem 0.65rem;
 	}
 
-	pre {
+	.home pre {
 		-webkit-overflow-scrolling: touch;
 		font-family: "Courier New", monospace;
 		font-size: 0.9rem;
 		margin: 0 0 2rem 0;
 	}
 
-		pre code {
+	.home pre code {
 			display: block;
 			line-height: 1.75;
 			padding: 1rem 1.5rem;
 			overflow-x: auto;
 		}
 
-	hr {
+		.home hr {
 		border: 0;
 		border-bottom: solid 2px;
 		margin: 3rem 0;
@@ -287,38 +269,38 @@ input, select, textarea {
 		text-align: right;
 	}
 
-	input, select, textarea {
+	.home input, .home select, .home textarea {
 		color: #212931;
 	}
 
-	a {
+	.home a {
 		color: #212931;
 		border-bottom-color: rgba(33, 41, 49, 0.5);
 	}
 
-		a:hover {
+	.home a:hover {
 			border-bottom-color: transparent;
 			color: #18bfef !important;
 		}
 
-	strong, b {
+		.home strong, .homeb {
 		color: #212931;
 	}
 
-	h1, h2, h3, h4, h5, h6 {
+	.home h1, .home h2, .home h3, .home h4, .home h5, .home h6 {
 		color: #212931;
 	}
 
-	blockquote {
+	.home blockquote {
 		border-left-color: #eeeeee;
 	}
 
-	code {
+	.home code {
 		background: rgba(220, 220, 220, 0.25);
 		border-color: #eeeeee;
 	}
 
-	hr {
+	.home hr {
 		border-bottom-color: #eeeeee;
 	}
 
@@ -2061,10 +2043,10 @@ input, select, textarea {
 
 /* Button */
 
-	input[type="submit"],
-	input[type="reset"],
-	input[type="button"],
-	button,
+.home input[type="submit"],
+.home input[type="reset"],
+.homeinput[type="button"],
+.home button,
 	.button {
 		-moz-appearance: none;
 		-webkit-appearance: none;
@@ -2165,10 +2147,10 @@ input, select, textarea {
 
 		@media screen and (max-width: 980px) {
 
-			input[type="submit"],
-			input[type="reset"],
-			input[type="button"],
-			button,
+			.home input[type="submit"],
+			.home input[type="reset"],
+			.home input[type="button"],
+			.home button,
 			.button {
 				font-size: 0.9rem;
 				height: 3.25rem;
@@ -2187,67 +2169,67 @@ input, select, textarea {
 
 		}
 
-		input[type="submit"].disabled, input[type="submit"]:disabled,
-		input[type="reset"].disabled,
-		input[type="reset"]:disabled,
-		input[type="button"].disabled,
-		input[type="button"]:disabled,
-		button.disabled,
-		button:disabled,
+		.home input[type="submit"].disabled, .home input[type="submit"]:disabled,
+		.homeinput[type="reset"].disabled,
+		.homeinput[type="reset"]:disabled,
+		.homeinput[type="button"].disabled,
+		.home input[type="button"]:disabled,
+		.home button.disabled,
+		.homebutton:disabled,
 		.button.disabled,
 		.button:disabled {
 			pointer-events: none;
 			opacity: 0.25;
 		}
 
-	input[type="submit"],
-	input[type="reset"],
-	input[type="button"],
-	button,
+		.home input[type="submit"],
+		.home input[type="reset"],
+		.home input[type="button"],
+		.home button,
 	.button {
 		background-color: transparent;
 		box-shadow: inset 0 0 0 2px #212931;
 		color: #212931 !important;
 	}
 
-		input[type="submit"]:hover,
-		input[type="reset"]:hover,
-		input[type="button"]:hover,
-		button:hover,
+	.home input[type="submit"]:hover,
+	.home input[type="reset"]:hover,
+	.homeinput[type="button"]:hover,
+	.home button:hover,
 		.button:hover {
 			box-shadow: inset 0 0 0 2px #18bfef;
 			color: #18bfef !important;
 		}
 
-		input[type="submit"].primary,
-		input[type="reset"].primary,
-		input[type="button"].primary,
-		button.primary,
+		.home input[type="submit"].primary,
+		.home input[type="reset"].primary,
+		.home input[type="button"].primary,
+		.home button.primary,
 		.button.primary {
 			background-color: #212931;
 			box-shadow: none;
 			color: #ffffff !important;
 		}
 
-			input[type="submit"].primary:hover,
-			input[type="reset"].primary:hover,
-			input[type="button"].primary:hover,
-			button.primary:hover,
+		.home input[type="submit"].primary:hover,
+		.home input[type="reset"].primary:hover,
+		.home input[type="button"].primary:hover,
+		.home button.primary:hover,
 			.button.primary:hover {
 				background-color: #18bfef;
 			}
 
 /* Form */
 
-	form {
+.home form {
 		margin: 0 0 2rem 0;
 	}
 
-		form > :last-child {
+	.home form > :last-child {
 			margin-bottom: 0;
 		}
 
-		form > .fields {
+		.home form > .fields {
 			display: -moz-flex;
 			display: -webkit-flex;
 			display: -ms-flex;
@@ -2311,7 +2293,7 @@ input, select, textarea {
 
 		}
 
-	label {
+		.home label {
 		display: block;
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-weight: 900;
@@ -2324,17 +2306,17 @@ input, select, textarea {
 
 		@media screen and (max-width: 980px) {
 
-			label {
+			.home label {
 				font-size: 0.9rem;
 			}
 
 		}
 
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
-	select,
-	textarea {
+		.home input[type="text"],
+		.home input[type="password"],
+		.home input[type="email"],
+		.home select,
+		.home textarea {
 		-moz-appearance: none;
 		-webkit-appearance: none;
 		-ms-appearance: none;
@@ -2350,15 +2332,15 @@ input, select, textarea {
 		width: 100%;
 	}
 
-		input[type="text"]:invalid,
-		input[type="password"]:invalid,
-		input[type="email"]:invalid,
-		select:invalid,
-		textarea:invalid {
+	.home input[type="text"]:invalid,
+	.home input[type="password"]:invalid,
+	.home input[type="email"]:invalid,
+	.home select:invalid,
+	.home textarea:invalid {
 			box-shadow: none;
 		}
 
-	select {
+		.home select {
 		background-size: 1.25rem;
 		background-repeat: no-repeat;
 		background-position: calc(100% - 1rem) center;
@@ -2367,27 +2349,27 @@ input, select, textarea {
 		text-overflow: ellipsis;
 	}
 
-		select:focus::-ms-value {
+	.home select:focus::-ms-value {
 			background-color: transparent;
 		}
 
-		select::-ms-expand {
+		.home select::-ms-expand {
 			display: none;
 		}
 
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
-	select {
+		.home input[type="text"],
+		.home input[type="password"],
+		.home input[type="email"],
+		.home select {
 		height: 3rem;
 	}
 
-	textarea {
+	.home textarea {
 		padding: 0.75rem 1rem;
 	}
 
-	input[type="checkbox"],
-	input[type="radio"] {
+	.home input[type="checkbox"],
+	.home input[type="radio"] {
 		-moz-appearance: none;
 		-webkit-appearance: none;
 		-ms-appearance: none;
@@ -2400,8 +2382,8 @@ input, select, textarea {
 		z-index: -1;
 	}
 
-		input[type="checkbox"] + label,
-		input[type="radio"] + label {
+	.home input[type="checkbox"] + label,
+	.home input[type="radio"] + label {
 			text-decoration: none;
 			cursor: pointer;
 			display: inline-block;
@@ -2415,8 +2397,8 @@ input, select, textarea {
 			position: relative;
 		}
 
-			input[type="checkbox"] + label:before,
-			input[type="radio"] + label:before {
+		.home input[type="checkbox"] + label:before,
+		.home input[type="radio"] + label:before {
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
 				display: inline-block;
@@ -2429,8 +2411,8 @@ input, select, textarea {
 				font-weight: 900;
 			}
 
-			input[type="checkbox"] + label:before,
-			input[type="radio"] + label:before {
+			.home input[type="checkbox"] + label:before,
+			.home input[type="radio"] + label:before {
 				border-radius: 0;
 				border: solid 2px;
 				content: '';
@@ -2445,60 +2427,60 @@ input, select, textarea {
 				width: 1.8rem;
 			}
 
-		input[type="checkbox"]:checked + label:before,
-		input[type="radio"]:checked + label:before {
+			.home input[type="checkbox"]:checked + label:before,
+			.home input[type="radio"]:checked + label:before {
 			content: '\f00c';
 		}
 
-	input[type="checkbox"] + label:before {
+		.home input[type="checkbox"] + label:before {
 		border-radius: 0;
 	}
 
-	input[type="radio"] + label:before {
+	.home input[type="radio"] + label:before {
 		border-radius: 100%;
 	}
 
-	::-webkit-input-placeholder {
+	.home ::-webkit-input-placeholder {
 		opacity: 1.0;
 	}
 
-	:-moz-placeholder {
+	.home :-moz-placeholder {
 		opacity: 1.0;
 	}
 
-	::-moz-placeholder {
+	.home ::-moz-placeholder {
 		opacity: 1.0;
 	}
 
-	:-ms-input-placeholder {
+	.home:-ms-input-placeholder {
 		opacity: 1.0;
 	}
 
-	label {
+	.home label {
 		color: #212931;
 	}
 
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
-	select,
-	textarea {
+	.home input[type="text"],
+	.home input[type="password"],
+	.home input[type="email"],
+	.home select,
+	.home textarea {
 		border-color: #eeeeee;
 	}
 
-		input[type="text"]:focus,
-		input[type="password"]:focus,
-		input[type="email"]:focus,
-		select:focus,
-		textarea:focus {
+	.home input[type="text"]:focus,
+	.home input[type="password"]:focus,
+	.home input[type="email"]:focus,
+	.home select:focus,
+	.home textarea:focus {
 			border-color: #18bfef;
 		}
 
-	select {
+		.home select {
 		background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='%23eeeeee' /%3E%3C/svg%3E");
 	}
 
-		select option {
+	.home select option {
 			background-color: #ffffff;
 			color: #212931;
 		}
@@ -2507,41 +2489,41 @@ input, select, textarea {
 		color: #eeeeee;
 	}
 
-	input[type="checkbox"] + label,
-	input[type="radio"] + label {
+	.home input[type="checkbox"] + label,
+	.home input[type="radio"] + label {
 		color: #212931;
 	}
 
-		input[type="checkbox"] + label:before,
-		input[type="radio"] + label:before {
+	.home input[type="checkbox"] + label:before,
+	.home input[type="radio"] + label:before {
 			border-color: #eeeeee;
 		}
 
-	input[type="checkbox"]:checked + label:before,
-	input[type="radio"]:checked + label:before {
+		.home input[type="checkbox"]:checked + label:before,
+		.home input[type="radio"]:checked + label:before {
 		background-color: #212931;
 		border-color: #212931;
 		color: #ffffff;
 	}
 
-	input[type="checkbox"]:focus + label:before,
-	input[type="radio"]:focus + label:before {
+	.home input[type="checkbox"]:focus + label:before,
+	.home input[type="radio"]:focus + label:before {
 		border-color: #18bfef;
 	}
 
-	::-webkit-input-placeholder {
+	.home ::-webkit-input-placeholder {
 		color: #909498 !important;
 	}
 
-	:-moz-placeholder {
+	.home :-moz-placeholder {
 		color: #909498 !important;
 	}
 
-	::-moz-placeholder {
+	.home ::-moz-placeholder {
 		color: #909498 !important;
 	}
 
-	:-ms-input-placeholder {
+	.home :-ms-input-placeholder {
 		color: #909498 !important;
 	}
 
@@ -2836,23 +2818,23 @@ input, select, textarea {
 
 /* List */
 
-	ol {
+.home ol {
 		list-style: decimal;
 		margin: 0 0 2rem 0;
 		padding-left: 1.25rem;
 	}
 
-		ol li {
+	.home ol li {
 			padding-left: 0.25rem;
 		}
 
-	ul {
+		.home ul {
 		list-style: disc;
 		margin: 0 0 2rem 0;
 		padding-left: 1rem;
 	}
 
-		ul li {
+	.home ul li {
 			padding-left: 0.5rem;
 		}
 
@@ -2871,17 +2853,17 @@ input, select, textarea {
 					padding-top: 0;
 				}
 
-	dl {
+				.home dl {
 		margin: 0 0 2rem 0;
 	}
 
-		dl dt {
+	.home dl dt {
 			display: block;
 			font-weight: 600;
 			margin: 0 0 1rem 0;
 		}
 
-		dl dd {
+		.home dl dd {
 			margin-left: 2rem;
 		}
 
@@ -2907,7 +2889,7 @@ input, select, textarea {
 		text-align: center;
 	}
 
-	header {
+	.home header {
 		cursor: default;
 	}
 
@@ -2919,32 +2901,32 @@ input, select, textarea {
 			position: relative;
 		}
 
-		header > p {
+		.home header > p {
 			font-style: italic;
 		}
 
-		header > h1 + p {
+		.home header > h1 + p {
 			font-size: 1.1rem;
 			margin-top: -0.5rem;
 			line-height: 2;
 		}
 
-		header > h2 + p {
+		.home header > h2 + p {
 			font-size: 1rem;
 			margin-top: -0.75rem;
 		}
 
-		header > h3 + p {
+		.home header > h3 + p {
 			font-size: 0.9rem;
 			margin-top: -0.75rem;
 		}
 
-		header > h4 + p {
+		.home header > h4 + p {
 			font-size: 0.8rem;
 			margin-top: -0.75rem;
 		}
 
-		header.major {
+		.home header.major {
 			margin: 0 0 4rem 0;
 			text-align: center;
 		}
@@ -2982,7 +2964,7 @@ input, select, textarea {
 
 		@media screen and (max-width: 980px) {
 
-			header br {
+			.home header br {
 				display: none;
 			}
 
@@ -3007,22 +2989,22 @@ input, select, textarea {
 		overflow-x: auto;
 	}
 
-	table {
+	.home table {
 		margin: 0 0 2rem 0;
 		width: 100%;
 	}
 
-		table tbody tr {
+	.home table tbody tr {
 			border: solid 1px;
 			border-left: 0;
 			border-right: 0;
 		}
 
-		table td {
+		.home table td {
 			padding: 0.75rem 0.75rem;
 		}
 
-		table th {
+		.home table th {
 			font-family: "Source Sans Pro", Helvetica, sans-serif;
 			font-size: 0.8rem;
 			font-weight: 900;
@@ -3035,21 +3017,21 @@ input, select, textarea {
 
 			@media screen and (max-width: 980px) {
 
-				table th {
+				.home table th {
 					font-size: 0.9rem;
 				}
 
 			}
 
-		table thead {
+			.home table thead {
 			border-bottom: solid 2px;
 		}
 
-		table tfoot {
+		.home table tfoot {
 			border-top: solid 2px;
 		}
 
-		table.alt {
+		.home table.alt {
 			border-collapse: separate;
 		}
 
@@ -3075,23 +3057,23 @@ input, select, textarea {
 				border-top: 0;
 			}
 
-	table tbody tr {
+			.home table tbody tr {
 		border-color: #eeeeee;
 	}
 
-		table tbody tr:nth-child(2n + 1) {
+	.home table tbody tr:nth-child(2n + 1) {
 			background-color: rgba(220, 220, 220, 0.25);
 		}
 
-	table th {
+		.home table th {
 		color: #212931;
 	}
 
-	table thead {
+	.home table thead {
 		border-bottom-color: #eeeeee;
 	}
 
-	table tfoot {
+	.home table tfoot {
 		border-top-color: #eeeeee;
 	}
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';  
-import '/public/assets/css/main.css';
+import '../styles/globals.css';
 import '/public/assets/css/noscript.css';
 
 export default function App({ Component, pageProps }) {

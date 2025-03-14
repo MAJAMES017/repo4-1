@@ -1,18 +1,29 @@
-import { useState } from 'react';
+import { useEffect,  useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import styles from '/public/assets/css/home.module.css';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [posts, setPosts] = useState([
     {
-      date: new Date().toISOString().split('T')[0], // Default date as today's date
+      date: new Date().toISOString().split('T')[0],
       title: "HRDC intranet Browser Launches",
       description: "After partnering with students from MSU, The HRDC has launched its official Intranet Site! Here, you can access internal files, view upcoming events, and complete your timesheets!",
       image: "../../images/hrdc.png"
     }
   ]);
+
+  useEffect(() => {
+    // Add class to <body> for body-level styling
+    document.body.classList.add(styles.body);
+
+    // Clean up to remove the class when unmounting
+    return () => {
+      document.body.classList.remove(styles.body);
+    };
+  }, []);
 
   const [newPost, setNewPost] = useState({
     title: '',
@@ -54,7 +65,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className={styles.home}> {/* Apply .home class from the CSS module */}
       <Head>
         <title>Massively by HTML5 UP</title>
         <meta charSet="utf-8" />
@@ -164,4 +175,3 @@ export default function Home() {
     </div>
   );
 }
-
