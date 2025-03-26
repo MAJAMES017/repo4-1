@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import styles from '../../public/assets/css/home.module.css'; // Import the CSS Module
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,7 +55,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className={styles.homePage}> {/* Wrap everything in the parent class */}
       <Head>
         <title>Massively by HTML5 UP</title>
         <meta charSet="utf-8" />
@@ -85,7 +86,7 @@ export default function Home() {
       <div id="main">
         <button onClick={() => setIsModalOpen(true)} 
                 style={{ margin: '20px', fontSize: '24px', padding: '10px', cursor: 'pointer', 
-                gap: '8px', justifyContent: 'center', alignItems: 'center',
+                gap: '8px', justifyContent: 'center', alignItems: 'center', 
                 boxShadow: 'none'}}>➕ Add Post</button>
 
         {/* Modal */}
@@ -132,7 +133,7 @@ export default function Home() {
         <section>
           <form method="post" action="#">
             <div className="fields">
-            <div className="field">
+              <div className="field">
                 <label htmlFor="name">Have any issues with the site? Send a ticket!</label>
               </div>
               <div className="field">
