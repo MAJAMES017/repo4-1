@@ -91,9 +91,9 @@ export default function Login() {
                             >
                                 Change Account
                             </h1>
-                            <p className="mb-4">
+                            <div className="mb-4">
                                 Currently signed in as: <strong>{currentUser.email}</strong>
-                            </p>
+                            </div>
                             <button
                                 onClick={handleSignOut}
                                 className="w-full text-white py-2 rounded-md mb-4 hover:bg-[var(--secondary-blue)]"
@@ -182,7 +182,7 @@ export default function Login() {
                                 </button>
                             </form>
 
-                            <p
+                            <div
                                 className="mt-4 text-center"
                                 style={{
                                     fontFamily: "var(--primary-body-copy-font-family)",
@@ -197,12 +197,12 @@ export default function Login() {
                                 >
                                     Create one
                                 </Link>
-                            </p>
+                            </div>
                         </>
                     )}
 
                     {error && (
-                        <p
+                        <div
                             className="mt-4 text-center"
                             style={{
                                 color: "red",
@@ -211,7 +211,7 @@ export default function Login() {
                             }}
                         >
                             {error}
-                        </p>
+                        </div>
                     )}
                 </div>
             </div>
