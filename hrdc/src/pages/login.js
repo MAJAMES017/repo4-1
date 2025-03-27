@@ -8,7 +8,8 @@ import {
     onAuthStateChanged,
     signOut
 } from "firebase/auth";
-import { auth } from "../firebase-config"; // Fixed path
+import { auth } from "../firebase-config";
+import { createUserProfile, getUserRole } from "./api/user-management";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,15 +18,21 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const [currentUser, setCurrentUser] = useState(null);
+    const [userRole, setUserRole] = useState(null);
     const router = useRouter();
 
     // Check if user is already logged in, but don't redirect automatically
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setCurrentUser(user);
+            if (user) {
+                const role = await getUserRole(user.uid);
+                setUserRole(role);
+            }
         });
         return () => unsubscribe();
     }, []);
+
 
     const handleSignOut = async () => {
         try {
@@ -39,7 +46,9 @@ export default function Login() {
     const handleGoogleLogin = async () => {
         const provider = new GoogleAuthProvider();
         try {
-            await signInWithPopup(auth, provider);
+            const result = await signInWithPopup(auth, provider);
+            // Create user profile if it doesn't exist
+            await createUserProfile(result.user);
             router.push("/");
         } catch (err) {
             setError(err.message);
@@ -49,7 +58,9 @@ export default function Login() {
     const handleEmailLogin = async (e) => {
         e.preventDefault();
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const result = await signInWithEmailAndPassword(auth, email, password);
+            // Create user profile if it doesn't exist
+            await createUserProfile(result.user);
             router.push("/");
         } catch (err) {
             setError(err.message);

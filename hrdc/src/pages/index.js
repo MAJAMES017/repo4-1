@@ -4,22 +4,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
+import { getUserRole } from "./api/user-management"
+import { USER_ROLES } from "./api/user-management";
 import SearchResults from "./api/searchresults";
 
 export default function Home() {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [user, setUser] = useState(null);
+    const [userRole, setUserRole] = useState(null);
 
     useEffect(() => {
-        // Listen for auth state changes
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setUser(user);
+            if (user) {
+                const role = await getUserRole(user.uid);
+                setUserRole(role);
+            }
         });
         return () => unsubscribe();
     }, []);
 
+    const isAdmin = userRole === USER_ROLES.ADMIN;
+
     return (
         <div className="min-h-screen flex flex-col items-center bg-[var(--whitebg-color)] text-[var(--black)] relative">
+
             {/* Top left: HRDC logo */}
             <div className="absolute top-4 left-4">
                 <Link href="/profile">
@@ -102,6 +111,8 @@ export default function Home() {
                     QUICK LINKS
                 </h2>
                 <div className="space-y-4">
+
+
                     <button
                         className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
                         style={{
@@ -162,6 +173,30 @@ export default function Home() {
                     >
                         Document Directory
                     </button>
+
+                    {isAdmin && (
+                        <>
+                            <button
+                                className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
+                                style={{
+                                    backgroundColor: "var(--primary)",
+                                    color: "var(--whitebg-color)",
+                                }}
+                            >
+                                Admin Dashboard
+                            </button>
+                            <button
+                                className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
+                                style={{
+                                    backgroundColor: "var(--primary)",
+                                    color: "var(--whitebg-color)",
+                                }}
+                            >
+                                Manage Announcements
+                            </button>
+                        </>
+                    )}
+
                 </div>
             </section>
 
