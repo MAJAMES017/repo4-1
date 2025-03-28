@@ -112,11 +112,7 @@ export default function Home() {
 
 
                     <button
-                        className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                        style={{
-                            backgroundColor: "var(--primary)",
-                            color: "var(--whitebg-color)",
-                        }}
+                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
                     >
                         Important Files
                     </button>
@@ -124,11 +120,7 @@ export default function Home() {
                     <div className="relative">
                         <button
                             onClick={() => setDropdownOpen(!isDropdownOpen)}
-                            className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                            style={{
-                                backgroundColor: "var(--primary)",
-                                color: "var(--whitebg-color)",
-                            }}
+                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
                         >
                             Modify Documents
                         </button>
@@ -155,11 +147,7 @@ export default function Home() {
 
                     <Link href="/profile" className="block">
                         <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                            style={{
-                                backgroundColor: "var(--primary)",
-                                color: "var(--whitebg-color)",
-                            }}
+                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
                         >
                             User Privileges
                         </button>
@@ -175,11 +163,7 @@ export default function Home() {
 
                     <Link href="/home" className="block">
                         <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                            style={{
-                                backgroundColor: "var(--primary)",
-                                color: "var(--whitebg-color)",
-                            }}
+                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
                         >
                             Announcements
                         </button>
