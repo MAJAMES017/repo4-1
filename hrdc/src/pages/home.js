@@ -11,13 +11,13 @@ export default function Home() {
   const handlePost = () => {
     if (newPost.title.trim() || newPost.text.trim() || newPost.image) {
       if (editingIndex !== null) {
-        // Update existing post
+       
         const updatedPosts = [...posts];
         updatedPosts[editingIndex] = newPost;
         setPosts(updatedPosts);
         setEditingIndex(null);
       } else {
-        // Add new post
+       
         setPosts([...posts, newPost]);
       }
 
@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 font-sans">
-      {/* Header with Add Post Button */}
+      
       <div className="flex justify-between items-center p-6 bg-green-700 text-white shadow-lg">
         <h1 className="text-3xl font-extrabold">Community Events & Notices</h1>
         <button
@@ -53,7 +53,7 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Post Form */}
+   
       {showForm && (
         <div className="p-6 bg-white shadow-md rounded-lg mx-4 my-4">
           <input
@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Posts Section */}
+
       <div className="p-6 space-y-6 flex-grow">
         {posts.length === 0 ? (
           <p className="text-gray-500 text-center text-lg">No posts yet. Be the first to share!</p>
@@ -105,7 +105,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-gray-800 mb-2">{post.title}</h2>
               <p className="text-lg text-gray-800">{post.text}</p>
 
-              {/* Edit & Delete Buttons */}
+     
               <div className="absolute top-2 right-2 space-x-2">
                 <button
                   onClick={() => handleEdit(index)}
@@ -125,7 +125,7 @@ export default function Home() {
         )}
       </div>
 
-      {/* Footer */}
+
       <div className="bg-gray-900 text-white text-center py-6 mt-6 shadow-lg">
         <p className="text-lg">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
         <Link href="/support" className="text-blue-400 underline text-lg hover:text-blue-300">
