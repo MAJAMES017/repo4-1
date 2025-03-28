@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import Navbar from "../components/Navbar";
 
 export default function Support() {
   const [status, setStatus] = useState(null);
@@ -34,6 +35,7 @@ export default function Support() {
 
   return (
     <div className="flex flex-col items-center w-full">
+      <Navbar />
       {/* Hero Section */}
       <div className="relative w-full h-90">
         {/* Background Image */}

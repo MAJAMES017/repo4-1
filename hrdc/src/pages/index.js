@@ -27,7 +27,6 @@ export default function Home() {
 
     return (
         <div className="min-h-screen flex flex-col items-center bg-[var(--whitebg-color)] text-[var(--black)] relative">
-
             {/* Top left: HRDC logo */}
             <div className="absolute top-4 left-4">
                 <Link href="/">
