@@ -7,33 +7,80 @@ export const USER_ROLES = {
 };
 
 export async function createUserProfile(user, role = USER_ROLES.EMPLOYEE) {
-    const userRef = doc(firestore, 'users', user.uid);
-    await setDoc(userRef, {
-        email: user.email,
-        displayName: user.displayName || user.email.split('@')[0],
-        role: role,
-        createdAt: new Date()
-    });
+    try {
+        const userRef = doc(firestore, 'users', user.uid);
+        const userDoc = await getDoc(userRef);
+
+        // Only create profile if it doesn't exist
+        if (!userDoc.exists()) {
+            await setDoc(userRef, {
+                email: user.email,
+                displayName: user.displayName || user.email.split('@')[0],
+                role: role,
+                createdAt: new Date(),
+                isVerified: false // Add a verification flag
+            });
+        }
+    } catch (error) {
+        console.error("Error creating user profile:", error);
+        throw error;
+    }
 }
 
 export async function getUserRole(userId) {
-    const userRef = doc(firestore, 'users', userId);
-    const userSnap = await getDoc(userRef);
-    return userSnap.exists() ? userSnap.data().role : null;
+    try {
+        const userRef = doc(firestore, 'users', userId);
+        const userSnap = await getDoc(userRef);
+        return userSnap.exists() ? userSnap.data().role : null;
+    } catch (error) {
+        console.error("Error getting user role:", error);
+        return null;
+    }
 }
 
 export async function updateUserRole(targetUserId, newRole) {
-    const userRef = doc(firestore, 'users', targetUserId);
-    await updateDoc(userRef, { role: newRole });
+    try {
+        const userRef = doc(firestore, 'users', targetUserId);
+        await updateDoc(userRef, { role: newRole });
+    } catch (error) {
+        console.error("Error updating user role:", error);
+        throw error;
+    }
 }
 
 export async function getAllUsers() {
-    const usersRef = collection(firestore, 'users');
-    const querySnapshot = await getDocs(usersRef);
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    try {
+        const usersRef = collection(firestore, 'users');
+        const querySnapshot = await getDocs(usersRef);
+        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (error) {
+        console.error("Error fetching all users:", error);
+        return [];
+    }
 }
 
 export async function isAdmin(userId) {
     const role = await getUserRole(userId);
     return role === USER_ROLES.ADMIN;
+}
+
+export async function addAdminByEmail(adminEmail) {
+    try {
+        // Find user by email
+        const usersRef = collection(firestore, 'users');
+        const q = query(usersRef, where('email', '==', adminEmail));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            const userDoc = querySnapshot.docs[0];
+            await updateDoc(doc(firestore, 'users', userDoc.id), {
+                role: USER_ROLES.ADMIN
+            });
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error("Error adding admin by email:", error);
+        throw error;
+    }
 }

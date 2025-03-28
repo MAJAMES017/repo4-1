@@ -31,7 +31,7 @@ export default function Home() {
 
             {/* Top left: HRDC logo */}
             <div className="absolute top-4 left-4">
-                <Link href="/profile">
+                <Link href="/">
                     <Image
                         src="/horizontal-1-color-HRDC-logo.svg"
                         alt="HRDC Logo"
@@ -57,7 +57,7 @@ export default function Home() {
                         />
                         <span
                             className="text-white text-sm mt-1"
-                            style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}
+                            style={{textShadow: "1px 1px 2px rgba(0,0,0,0.5)"}}
                         >
                             {user ? (user.displayName || user.email.split('@')[0]) : "Login"}
                         </span>
@@ -155,15 +155,18 @@ export default function Home() {
                         )}
                     </div>
 
-                    <button
-                        className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                        style={{
-                            backgroundColor: "var(--primary)",
-                            color: "var(--whitebg-color)",
-                        }}
-                    >
-                        User Privileges
-                    </button>
+                    <Link href="/profile" className="block">
+                        <button
+                            className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
+                            style={{
+                                backgroundColor: "var(--primary)",
+                                color: "var(--whitebg-color)",
+                            }}
+                        >
+                            User Privileges
+                        </button>
+                    </Link>
+
                     <button
                         className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
                         style={{
@@ -174,28 +177,17 @@ export default function Home() {
                         Document Directory
                     </button>
 
-                    {isAdmin && (
-                        <>
-                            <button
-                                className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                                style={{
-                                    backgroundColor: "var(--primary)",
-                                    color: "var(--whitebg-color)",
-                                }}
-                            >
-                                Admin Dashboard
-                            </button>
-                            <button
-                                className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                                style={{
-                                    backgroundColor: "var(--primary)",
-                                    color: "var(--whitebg-color)",
-                                }}
-                            >
-                                Manage Announcements
-                            </button>
-                        </>
-                    )}
+                    <Link href="/home" className="block">
+                        <button
+                            className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
+                            style={{
+                                backgroundColor: "var(--primary)",
+                                color: "var(--whitebg-color)",
+                            }}
+                        >
+                            Announcements
+                        </button>
+                    </Link>
 
                 </div>
             </section>
@@ -215,7 +207,7 @@ export default function Home() {
                 >
                     Can't find what you are looking for?
                 </div>
-                <SearchResults />
+                <SearchResults/>
             </section>
         </div>
     );
