@@ -6,7 +6,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { getUserRole } from "./api/user-management"
 import { USER_ROLES } from "./api/user-management";
-import SearchResults from "./api/searchresults";
 
 export default function Home() {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -167,15 +166,13 @@ export default function Home() {
                         </button>
                     </Link>
 
-                    <button
-                        className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                        style={{
-                            backgroundColor: "var(--primary)",
-                            color: "var(--whitebg-color)",
-                        }}
-                    >
-                        Document Directory
-                    </button>
+                    <Link href="/directory" className="block">
+                        <button
+                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
+                        >
+                            Document Directory
+                        </button>
+                    </Link>
 
                     <Link href="/home" className="block">
                         <button
@@ -205,9 +202,7 @@ export default function Home() {
                         fontStyle: "var(--primary-subheader-font-style)",
                     }}
                 >
-                    Can't find what you are looking for?
                 </div>
-                <SearchResults/>
             </section>
         </div>
     );
