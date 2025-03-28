@@ -1,4 +1,11 @@
 // pages/api/search.js
+
+export default function handler(req, res) {
+  res.status(200).json({ message: "This API route is currently disabled." });
+}
+
+
+/*
 import { google } from "googleapis";
 
 export default async function handler(req, res) {
@@ -15,10 +22,9 @@ export default async function handler(req, res) {
       auth: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
     });
 
-    const response = await drive.files.list({
-      q: `'${folderId}' in parents and name contains '${query}'`,
-      fields: "files(id, name, mimeType)",
-    });
+    const response = await fetch(
+      `https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and name contains '${query}'&key=${process.env.GOOGLE_API_KEY}`
+    );
 
     res.status(200).json({ files: response.data.files });
   } catch (error) {
@@ -26,3 +32,4 @@ export default async function handler(req, res) {
     res.status(500).json({ error: error.message });
   }
 }
+*/
