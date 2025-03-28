@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { isAdmin } from "./api/user-management";
 import { createPost, getPosts, updatePost, deletePost } from "./api/posts-management";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -121,6 +122,7 @@ export default function Home() {
 
   return (
       <div className="min-h-screen flex flex-col bg-gray-100 font-sans">
+        <Navbar />
         <div className="flex justify-between items-center p-6 bg-green-700 text-white shadow-lg">
           <div>
             <Link href="/">
