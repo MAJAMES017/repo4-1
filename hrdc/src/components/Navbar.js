@@ -9,7 +9,7 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const menuItems = ["HOME", "CLASSES", "DOCUMENTS", "SUPPORT", "SCHEDULE"];
+  const menuItems = ["HOME", "DOCUMENTS", "SUPPORT", "SCHEDULE"];
 
   return (
     <nav className="w-full relative bg-[var(--primary)] text-white px-6 py-4">

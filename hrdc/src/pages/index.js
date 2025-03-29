@@ -1,208 +1,223 @@
-// pages/index.js
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { getUserRole } from "./api/user-management"
-import { USER_ROLES } from "./api/user-management";
+import { isAdmin } from "./api/user-management";
+import { createPost, getPosts, updatePost, deletePost } from "./api/posts-management";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
-    const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [user, setUser] = useState(null);
-    const [userRole, setUserRole] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [newPost, setNewPost] = useState({ title: "", text: "" });
+  const [editingPost, setEditingPost] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isUserAdmin, setIsUserAdmin] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            setUser(user);
-            if (user) {
-                const role = await getUserRole(user.uid);
-                setUserRole(role);
-            }
+  // Fetch posts and check admin status
+  useEffect(() => {
+    const fetchPostsAndCheckAdmin = async () => {
+      try {
+        setLoading(true);
+        const fetchedPosts = await getPosts();
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const adminStatus = await isAdmin(user.uid);
+          setCurrentUser(user);
+          setIsUserAdmin(adminStatus);
+        } catch (error) {
+          console.error("Error checking admin status:", error);
+          setIsUserAdmin(false);
+        }
+      } else {
+        setCurrentUser(null);
+        setIsUserAdmin(false);
+      }
+
+      fetchPostsAndCheckAdmin();
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Handle post submission
+  const handlePost = async () => {
+    if (!isUserAdmin) {
+      alert("Only admins can create posts!");
+      return;
+    }
+
+    if (!newPost.title.trim() && !newPost.text.trim()) {
+      alert("Please enter post content");
+      return;
+    }
+
+    try {
+      if (editingPost) {
+        // Update existing post
+        await updatePost(editingPost.id, {
+          title: newPost.title,
+          text: newPost.text,
         });
-        return () => unsubscribe();
-    }, []);
 
-    const isAdmin = userRole === USER_ROLES.ADMIN;
+        // Refresh posts
+        const updatedPosts = await getPosts();
+        setPosts(updatedPosts);
+      } else {
+        // Create new post
+        const createdPost = await createPost(
+          {
+            title: newPost.title,
+            text: newPost.text,
+          },
+          currentUser.uid
+        );
+        setPosts([createdPost, ...posts]);
+      }
 
-    return (
-        <div className="min-h-screen flex flex-col items-center bg-[var(--whitebg-color)] text-[var(--black)] relative">
-            {/* Top left: HRDC logo */}
-            <div className="absolute top-4 left-4">
-                <Link href="/">
-                    <Image
-                        src="/horizontal-1-color-HRDC-logo.svg"
-                        alt="HRDC Logo"
-                        width={160}
-                        height={200}
-                        className="cursor-pointer"
-                        priority
-                    />
-                </Link>
-            </div>
+      // Reset form
+      setNewPost({ title: "", text: "" });
+      setEditingPost(null);
+      setShowForm(false);
+    } catch (error) {
+      alert("Failed to create/update post");
+    }
+  };
 
-            {/* Top right: Login link - always available for account switching */}
-            <div className="absolute top-4 right-4">
-                <Link href="/login">
-                    <div className="flex flex-col items-center">
-                        <Image
-                            src="/person.svg"
-                            alt="Login/Account"
-                            width={40}
-                            height={40}
-                            className="cursor-pointer"
-                            priority
-                        />
-                        <span
-                            className="text-white text-sm mt-1"
-                            style={{textShadow: "1px 1px 2px rgba(0,0,0,0.5)"}}
-                        >
-                            {user ? (user.displayName || user.email.split('@')[0]) : "Login"}
-                        </span>
-                    </div>
-                </Link>
-            </div>
+  // Handle post edit
+  const handleEdit = (post) => {
+    setNewPost({
+      title: post.title,
+      text: post.text,
+    });
+    setEditingPost(post);
+    setShowForm(true);
+  };
 
-            <header
-                className="w-full py-6 flex flex-col items-center"
-                style={{backgroundColor: "var(--primary)"}}
+  // Handle post deletion
+  const handleDelete = async (postId) => {
+    if (!isUserAdmin) {
+      alert("Only admins can delete posts!");
+      return;
+    }
+
+    try {
+      await deletePost(postId);
+      setPosts(posts.filter((post) => post.id !== postId));
+    } catch (error) {
+      alert("Failed to delete post");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-gray-100 font-sans">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <div className="relative w-full h-64 md:h-96">
+        <Image
+          src="/hrdc.png"
+          alt="Filing Cabinets"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="bg-white/60 w-[550px] h-[150px] flex items-center justify-center">
+            <h1 className="text-[44px] font-bold text-black"
+              style={{ fontFamily: '"Gotham", Helvetica' }}
             >
-                <Image
-                    src="/logo.png"
-                    alt="HRDC Logo"
-                    width={100}
-                    height={50}
-                    priority
-                />
-                <h1
-                    className="mt-2"
-                    style={{
-                        fontFamily: "var(--primary-header-font-family)",
-                        fontWeight: "var(--primary-header-font-weight)",
-                        fontSize: "var(--primary-header-font-size)",
-                        color: "var(--whitebg-color)",
-                        letterSpacing: "var(--primary-header-letter-spacing)",
-                        lineHeight: "var(--primary-header-line-height)",
-                        fontStyle: "var(--primary-header-font-style)",
-                    }}
-                >
-                    EMPLOYEE RESOURCES
-                </h1>
-            </header>
-
-            <section
-                className="mt-8 p-6 rounded-lg shadow-md w-3/4 max-w-lg text-center"
-                style={{backgroundColor: "var(--secondary-gold)"}}
-            >
-                <h2
-                    className="mb-4"
-                    style={{
-                        fontFamily: "var(--h-2-font-family)",
-                        fontWeight: "var(--h-2-font-weight)",
-                        fontSize: "var(--h-2-font-size)",
-                        color: "var(--whitebg-color)",
-                        letterSpacing: "var(--h-2-letter-spacing)",
-                        lineHeight: "var(--h-2-line-height)",
-                        fontStyle: "var(--h-2-font-style)",
-                    }}
-                >
-                    QUICK LINKS
-                </h2>
-                <div className="space-y-4">
-
-
-                    <button
-                        className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                        style={{
-                            backgroundColor: "var(--primary)",
-                            color: "var(--whitebg-color)",
-                        }}
-                    >
-                        Important Files
-                    </button>
-
-                    <div className="relative">
-                        <button
-                            onClick={() => setDropdownOpen(!isDropdownOpen)}
-                            className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                            style={{
-                                backgroundColor: "var(--primary)",
-                                color: "var(--whitebg-color)",
-                            }}
-                        >
-                            Modify Documents
-                        </button>
-                        {isDropdownOpen && (
-                            <div
-                                className="absolute left-0 w-full shadow-lg rounded-md mt-1"
-                                style={{
-                                    backgroundColor: "var(--whitebg-color)",
-                                    border: "1px solid var(--secondary-blue)",
-                                    color: "var(--black)",
-                                }}
-                            >
-                                {["Create", "Edit", "Delete"].map((action, index) => (
-                                    <button
-                                        key={index}
-                                        className="block w-full text-left px-4 py-2 hover:bg-[var(--faded-white-for-cards)]"
-                                    >
-                                        {action}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
-                    <Link href="/profile" className="block">
-                        <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                            style={{
-                                backgroundColor: "var(--primary)",
-                                color: "var(--whitebg-color)",
-                            }}
-                        >
-                            User Privileges
-                        </button>
-                    </Link>
-
-                    <Link href="/directory" className="block">
-                        <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
-                        >
-                            Document Directory
-                        </button>
-                    </Link>
-
-                    <Link href="/home" className="block">
-                        <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium hover:bg-[var(--primary)]"
-                            style={{
-                                backgroundColor: "var(--primary)",
-                                color: "var(--whitebg-color)",
-                            }}
-                        >
-                            Announcements
-                        </button>
-                    </Link>
-
-                </div>
-            </section>
-
-            <section className="mt-10 text-center">
-                <div
-                    className="font-medium"
-                    style={{
-                        color: "var(--black)",
-                        fontFamily: "var(--primary-subheader-font-family)",
-                        fontWeight: "var(--primary-subheader-font-weight)",
-                        fontSize: "var(--primary-subheader-font-size)",
-                        letterSpacing: "var(--primary-subheader-letter-spacing)",
-                        lineHeight: "var(--primary-subheader-line-height)",
-                        fontStyle: "var(--primary-subheader-font-style)",
-                    }}
-                >
-                </div>
-            </section>
+              ANNOUNCEMENTS
+            </h1>
+          </div>
         </div>
-    );
+      </div>
+
+      {/* Admin-only "Create Document" button */}
+      {isUserAdmin && (
+        <button
+          onClick={() => setShowForm(true)}
+          className="fixed bottom-6 right-6 bg-green-700 text-white rounded-full w-16 h-16 text-3xl flex items-center justify-center shadow-lg hover:bg-green-800 transition duration-200"
+          title="Create Document"
+        >
+          +
+        </button>
+      )}
+
+      {/* Post Form */}
+      {showForm && (
+        <div className="p-6 bg-white shadow-md rounded-lg mx-4 my-4">
+          <input
+            type="text"
+            className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Post Title"
+            value={newPost.title}
+            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+          />
+          <textarea
+            className="w-full p-4 mt-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Write your post..."
+            value={newPost.text}
+            onChange={(e) => setNewPost({ ...newPost, text: e.target.value })}
+          ></textarea>
+          <button
+            onClick={handlePost}
+            className="mt-4 px-6 py-3 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-800"
+          >
+            {editingPost !== null ? "Update Post" : "Post"}
+          </button>
+        </div>
+      )}
+
+      {/* Posts */}
+      <div className="p-6 space-y-6 flex-grow">
+        {posts.map((post) => (
+          <div key={post.id} className="p-6 bg-white shadow-lg rounded-lg border border-gray-300">
+            <div className="p-6 bg-white shadow-lg rounded-xl border border-gray-300 w-full max-w-2xl mx-auto text-center">
+              <h2 className="text-4xl font-bold text-green-800">{post.title}</h2>
+              <p className="text-gray-500 text-sm mt-1">{new Date(post.date).toLocaleDateString()}</p>
+              <hr className="my-4 border-t-2 border-gray-300 w-3/4 mx-auto" />
+              <p className="text-gray-800 text-lg leading-relaxed">{post.text}</p>
+
+              {isUserAdmin && (
+                <div className="flex justify-center space-x-4 mt-4">
+                  <button
+                    onClick={() => handleEdit(post)}
+                    className="px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(post.id)}
+                    className="px-4 py-2 rounded text-white bg-red-500 hover:bg-red-600"
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <div className="bg-gray-900 text-white text-center py-6 mt-6 shadow-lg">
+        <p className="text-lg">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
+        <Link href="/support" className="text-blue-400 underline text-lg hover:text-blue-300">
+          Need Help? Visit Support
+        </Link>
+      </div>
+    </div>
+  );
 }
