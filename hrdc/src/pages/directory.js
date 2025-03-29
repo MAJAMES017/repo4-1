@@ -17,7 +17,7 @@ export default function Directory() {
                 src="/filing-cabinet.jpg"
                 alt="Filing Cabinets"
                 fill
-                className="object-cover object-center"
+                className="banner-image"
                 priority
             />
         <div className="absolute inset-0 flex items-center justify-center">
