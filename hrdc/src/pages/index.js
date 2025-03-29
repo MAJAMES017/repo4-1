@@ -69,6 +69,7 @@ export default function Home() {
         await updatePost(editingPost.id, {
           title: newPost.title,
           text: newPost.text,
+          date: new Date().toISOString() 
         });
 
         // Refresh posts
@@ -80,6 +81,7 @@ export default function Home() {
           {
             title: newPost.title,
             text: newPost.text,
+            date: new Date().toISOString()
           },
           currentUser.uid
         );
@@ -186,7 +188,11 @@ export default function Home() {
           <div key={post.id} className="p-6 bg-white shadow-lg rounded-lg border border-gray-300">
             <div className="p-6 bg-white shadow-lg rounded-xl border border-gray-300 w-full max-w-2xl mx-auto text-center">
               <h2 className="text-4xl font-bold text-green-800">{post.title}</h2>
-              <p className="text-gray-500 text-sm mt-1">{new Date(post.date).toLocaleDateString()}</p>
+              <p className="text-gray-500 text-sm mt-1">
+  {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleDateString() : "Date unavailable"}
+</p>
+
+
               <hr className="my-4 border-t-2 border-gray-300 w-3/4 mx-auto" />
               <p className="text-gray-800 text-lg leading-relaxed">{post.text}</p>
 
