@@ -49,7 +49,8 @@ export default function Profile() {
   if (!user) return <div>Loading...</div>;
 
   return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[var(--faded-white-for-cards)] text-[var(--black)]">
+      <div
+          className="min-h-screen flex flex-col items-center justify-center bg-[var(--faded-white-for-cards)] text-[var(--black)]">
         <div className="bg-[var(--whitebg-color)] shadow-lg rounded-lg p-8 w-3/4 max-w-md text-center">
           <h1 className="text-2xl font-semibold">{user.displayName || user.email}</h1>
           <div className="text-gray-600 mt-2">
@@ -125,12 +126,17 @@ export default function Profile() {
 
           <div className="mt-6">
             <Link href="/">
-              <button className="bg-[var(--primary)] text-white px-4 py-2 rounded-lg text-lg font-medium hover:bg-[var(--secondary-blue)]">
+              <button
+                  className="bg-[var(--primary)] text-white px-4 py-2 rounded-lg text-lg font-medium hover:bg-[var(--secondary-blue)]">
                 Back to Home
               </button>
             </Link>
           </div>
         </div>
+        <footer className="w-full bg-gray-900 text-white text-center py-4 mt-auto"
+                style={{backgroundColor: "var(--secondary-blue)"}}>
+          <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
+        </footer>
       </div>
   );
 }

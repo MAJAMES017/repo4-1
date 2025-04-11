@@ -40,7 +40,7 @@ export default function SignUp() {
 
     return (
         <div className="min-h-screen flex flex-col bg-[var(--faded-white-for-cards)]">
-            <Navbar />
+            <Navbar/>
             {/* Added header from login.js */}
             <header
                 className="w-full py-6 flex flex-col items-center"
@@ -148,6 +148,10 @@ export default function SignUp() {
                     </div>
                 </div>
             </div>
+            <footer className="w-full bg-gray-900 text-white text-center py-4 mt-auto"
+                    style={{backgroundColor: "var(--secondary-blue)"}}>
+                <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
+            </footer>
         </div>
     );
 }

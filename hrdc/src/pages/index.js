@@ -123,107 +123,106 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100 font-sans">
-      <Navbar />
-      
-      {/* Hero Section */}
-      <div className="relative w-full h-64 md:h-96">
-        <Image
-          src="/hrdc.png"
-          alt="Filing Cabinets"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="bg-white/60 w-[550px] h-[150px] flex items-center justify-center">
-            <h1 className="text-[44px] font-bold text-black"
-              style={{ fontFamily: '"Gotham", Helvetica' }}
-            >
-              ANNOUNCEMENTS
-            </h1>
-          </div>
-        </div>
-      </div>
+      <div className="min-h-screen flex flex-col bg-gray-100 font-sans">
+        <Navbar/>
 
-      {/* Admin-only "Create Document" button */}
-      {isUserAdmin && (
-        <button
-          onClick={() => setShowForm(true)}
-          className="fixed bottom-6 right-6 bg-green-700 text-white rounded-full w-16 h-16 text-3xl flex items-center justify-center shadow-lg hover:bg-green-800 transition duration-200"
-          title="Create Document"
-        >
-          +
-        </button>
-      )}
-
-      {/* Post Form */}
-      {showForm && (
-        <div className="p-6 bg-white shadow-md rounded-lg mx-4 my-4">
-          <input
-            type="text"
-            className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            placeholder="Post Title"
-            value={newPost.title}
-            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+        {/* Hero Section */}
+        <div className="relative w-full h-64 md:h-96">
+          <Image
+              src="/hrdc.png"
+              alt="Filing Cabinets"
+              fill
+              className="object-cover object-center"
+              priority
           />
-          <textarea
-            className="w-full p-4 mt-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-            placeholder="Write your post..."
-            value={newPost.text}
-            onChange={(e) => setNewPost({ ...newPost, text: e.target.value })}
-          ></textarea>
-          <button
-            onClick={handlePost}
-            className="mt-4 px-6 py-3 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-800"
-          >
-            {editingPost !== null ? "Update Post" : "Post"}
-          </button>
-        </div>
-      )}
-
-      {/* Posts */}
-      <div className="p-6 space-y-6 flex-grow">
-        {posts.map((post) => (
-          <div key={post.id} className="p-6 bg-white shadow-lg rounded-lg border border-gray-300">
-            <div className="p-6 bg-white shadow-lg rounded-xl border border-gray-300 w-full max-w-2xl mx-auto text-center">
-              <h2 className="text-4xl font-bold text-green-800">{post.title}</h2>
-              <p className="text-gray-500 text-sm mt-1">
-  {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleDateString() : "Date unavailable"}
-</p>
-
-
-              <hr className="my-4 border-t-2 border-gray-300 w-3/4 mx-auto" />
-              <p className="text-gray-800 text-lg leading-relaxed">{post.text}</p>
-
-              {isUserAdmin && (
-                <div className="flex justify-center space-x-4 mt-4">
-                  <button
-                    onClick={() => handleEdit(post)}
-                    className="px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(post.id)}
-                    className="px-4 py-2 rounded text-white bg-red-500 hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
-                </div>
-              )}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-white/60 w-[550px] h-[150px] flex items-center justify-center">
+              <h1 className="text-[44px] font-bold text-black"
+                  style={{fontFamily: '"Gotham", Helvetica'}}
+              >
+                ANNOUNCEMENTS
+              </h1>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* Footer */}
-      <div className="bg-gray-900 text-white text-center py-6 mt-6 shadow-lg">
-        <p className="text-lg">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
-        <Link href="/support" className="text-blue-400 underline text-lg hover:text-blue-300">
-          Need Help? Visit Support
-        </Link>
+        {/* Admin-only "Create Document" button */}
+        {isUserAdmin && (
+            <button
+                onClick={() => setShowForm(true)}
+                className="fixed bottom-6 right-6 bg-green-700 text-white rounded-full w-16 h-16 text-3xl flex items-center justify-center shadow-lg hover:bg-green-800 transition duration-200"
+                title="Create Document"
+            >
+              +
+            </button>
+        )}
+
+        {/* Post Form */}
+        {showForm && (
+            <div className="p-6 bg-white shadow-md rounded-lg mx-4 my-4">
+              <input
+                  type="text"
+                  className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Post Title"
+                  value={newPost.title}
+                  onChange={(e) => setNewPost({...newPost, title: e.target.value})}
+              />
+              <textarea
+                  className="w-full p-4 mt-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Write your post..."
+                  value={newPost.text}
+                  onChange={(e) => setNewPost({...newPost, text: e.target.value})}
+              ></textarea>
+              <button
+                  onClick={handlePost}
+                  className="mt-4 px-6 py-3 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-800"
+              >
+                {editingPost !== null ? "Update Post" : "Post"}
+              </button>
+            </div>
+        )}
+
+        {/* Posts */}
+        <div className="p-6 space-y-6 flex-grow">
+          {posts.map((post) => (
+              <div key={post.id} className="p-6 bg-white shadow-lg rounded-lg border border-gray-300">
+                <div
+                    className="p-6 bg-white shadow-lg rounded-xl border border-gray-300 w-full max-w-2xl mx-auto text-center">
+                  <h2 className="text-4xl font-bold text-green-800">{post.title}</h2>
+                  <p className="text-gray-500 text-sm mt-1">
+                    {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleDateString() : "Date unavailable"}
+                  </p>
+
+
+                  <hr className="my-4 border-t-2 border-gray-300 w-3/4 mx-auto"/>
+                  <p className="text-gray-800 text-lg leading-relaxed">{post.text}</p>
+
+                  {isUserAdmin && (
+                      <div className="flex justify-center space-x-4 mt-4">
+                        <button
+                            onClick={() => handleEdit(post)}
+                            className="px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600"
+                        >
+                          Edit
+                        </button>
+                        <button
+                            onClick={() => handleDelete(post.id)}
+                            className="px-4 py-2 rounded text-white bg-red-500 hover:bg-red-600"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                  )}
+                </div>
+              </div>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div className="w-full bg-gray-900 text-white text-center py-4 mt-auto"
+             style={{backgroundColor: "var(--secondary-blue)"}}>
+          <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
+        </div>
       </div>
-    </div>
   );
 }
