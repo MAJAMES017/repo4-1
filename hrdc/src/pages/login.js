@@ -12,7 +12,6 @@ import { auth } from "../firebase-config";
 import { createUserProfile, getUserRole } from "./api/user-management";
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "../components/Navbar";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -70,7 +69,6 @@ export default function Login() {
 
     return (
         <div className="min-h-screen flex flex-col bg-[var(--faded-white-for-cards)]">
-            <Navbar />
             <header
                 className="w-full py-6 flex flex-col items-center"
                 style={{backgroundColor: "var(--primary)"}}

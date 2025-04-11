@@ -5,7 +5,6 @@ import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/aut
 import { auth } from ".//../firebase-config"; // adjust the path if necessary
 import Link from "next/link";
 import Image from "next/image"; // Added import for Image
-import Navbar from "../components/Navbar";
 
 export default function SignUp() {
     const [email, setEmail] = useState("");
@@ -40,7 +39,6 @@ export default function SignUp() {
 
     return (
         <div className="min-h-screen flex flex-col bg-[var(--faded-white-for-cards)]">
-            <Navbar />
             {/* Added header from login.js */}
             <header
                 className="w-full py-6 flex flex-col items-center"

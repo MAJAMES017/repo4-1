@@ -1,6 +1,5 @@
 import Image from "next/image";
 import SearchResults from "./api/searchresults";
-import Navbar from "../components/Navbar";
 
 export default function Directory() {
     const handleOpenFile = (fileUrl) => {
@@ -9,9 +8,7 @@ export default function Directory() {
     
     return (
         <div className="element-light min-h-screen flex flex-col">
-            <Navbar />
 
-        {/* document and background picture */}
         <div className="relative w-full h-64 md:h-96">
             <Image
                 src="/filing-cabinet.jpg"
@@ -29,7 +26,6 @@ export default function Directory() {
         </div>
         </div>
 
-     {/* priority links */}
     <section
         className="w-full pt-12 pb-11 px-6 flex flex-col items-center space-y-6"
         style={{ backgroundColor: "var(--secondary-gold)", wordSpacing: "0.2rem" }}
@@ -62,7 +58,6 @@ export default function Directory() {
         </div>
     </section>
 
-    {/* find a document */}
     <section className="flex flex-col items-center py-14 px-4 bg-white">
         <h2 className="text-[30px] font-bold mb-4" 
             style={{ color: "var(--primary)", fontFamily: '"Gotham", Helvetica', wordSpacing: "0.2rem" }}
@@ -72,11 +67,6 @@ export default function Directory() {
         <SearchResults />
     </section>
 
-    {/* footer */}
-    <footer className="w-full bg-gray-900 text-white text-center py-4 mt-auto"
-        style= {{backgroundColor: "var(--secondary-blue)" }}>
-        <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
-    </footer>
     </div>
   );
 }

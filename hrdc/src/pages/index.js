@@ -1,192 +1,127 @@
-// pages/index.js
+"use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { getUserRole } from "./api/user-management"
-import { USER_ROLES } from "./api/user-management";
+import { getUserRole, USER_ROLES } from "./api/user-management";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 
 export default function Home() {
-    const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [user, setUser] = useState(null);
-    const [userRole, setUserRole] = useState(null);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            setUser(user);
-            if (user) {
-                const role = await getUserRole(user.uid);
-                setUserRole(role);
-            }
-        });
-        return () => unsubscribe();
-    }, []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
+      if (user) {
+        const role = await getUserRole(user.uid);
+        setUserRole(role);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
-    const isAdmin = userRole === USER_ROLES.ADMIN;
+  const isAdmin = userRole === USER_ROLES.ADMIN;
 
-    return (
-        <div className="min-h-screen flex flex-col items-center bg-[var(--whitebg-color)] text-[var(--black)] relative">
-            {/* Top left: HRDC logo */}
-            <div className="absolute top-4 left-4">
-                <Link href="/">
-                    <Image
-                        src="/horizontal-1-color-HRDC-logo.svg"
-                        alt="HRDC Logo"
-                        width={160}
-                        height={200}
-                        className="cursor-pointer"
-                        priority
-                    />
-                </Link>
-            </div>
+  return (
+    <div className="min-h-screen flex flex-col items-center bg-[var(--whitebg-color)] text-[var(--black)]">
 
-            {/* Top right: Login link - always available for account switching */}
-            <div className="absolute top-4 right-4">
-                <Link href="/login">
-                    <div className="flex flex-col items-center">
-                        <Image
-                            src="/person.svg"
-                            alt="Login/Account"
-                            width={40}
-                            height={40}
-                            className="cursor-pointer"
-                            priority
-                        />
-                        <span
-                            className="text-white text-sm mt-1"
-                            style={{textShadow: "1px 1px 2px rgba(0,0,0,0.5)"}}
-                        >
-                            {user ? (user.displayName || user.email.split('@')[0]) : "Login"}
-                        </span>
-                    </div>
-                </Link>
-            </div>
-
-            <header
-                className="w-full py-6 flex flex-col items-center"
-                style={{backgroundColor: "var(--primary)"}}
+      <div className="relative w-full h-64 md:h-96">
+        <Image
+          src="/bzn.jpg"
+          alt="Quick Links Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <div className="bg-white/60 backdrop-brightness-75 w-[550px] h-[150px] flex items-center justify-center">
+            <h1
+              className="text-[44px] font-bold text-black"
+              style={{ fontFamily: '"Gotham", Helvetica' }}
             >
-                <Image
-                    src="/logo.png"
-                    alt="HRDC Logo"
-                    width={100}
-                    height={50}
-                    priority
-                />
-                <h1
-                    className="mt-2"
-                    style={{
-                        fontFamily: "var(--primary-header-font-family)",
-                        fontWeight: "var(--primary-header-font-weight)",
-                        fontSize: "var(--primary-header-font-size)",
-                        color: "var(--whitebg-color)",
-                        letterSpacing: "var(--primary-header-letter-spacing)",
-                        lineHeight: "var(--primary-header-line-height)",
-                        fontStyle: "var(--primary-header-font-style)",
-                    }}
-                >
-                    EMPLOYEE RESOURCES
-                </h1>
-            </header>
-
-            <section
-                className="mt-8 p-6 rounded-lg shadow-md w-3/4 max-w-lg text-center"
-                style={{backgroundColor: "var(--secondary-gold)"}}
-            >
-                <h2
-                    className="mb-4"
-                    style={{
-                        fontFamily: "var(--h-2-font-family)",
-                        fontWeight: "var(--h-2-font-weight)",
-                        fontSize: "var(--h-2-font-size)",
-                        color: "var(--whitebg-color)",
-                        letterSpacing: "var(--h-2-letter-spacing)",
-                        lineHeight: "var(--h-2-line-height)",
-                        fontStyle: "var(--h-2-font-style)",
-                    }}
-                >
-                    QUICK LINKS
-                </h2>
-                <div className="space-y-4">
-
-
-                    <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
-                    >
-                        Important Files
-                    </button>
-
-                    <div className="relative">
-                        <button
-                            onClick={() => setDropdownOpen(!isDropdownOpen)}
-                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
-                        >
-                            Modify Documents
-                        </button>
-                        {isDropdownOpen && (
-                            <div
-                                className="absolute left-0 w-full shadow-lg rounded-md mt-1"
-                                style={{
-                                    backgroundColor: "var(--whitebg-color)",
-                                    border: "1px solid var(--secondary-blue)",
-                                    color: "var(--black)",
-                                }}
-                            >
-                                {["Create", "Edit", "Delete"].map((action, index) => (
-                                    <button
-                                        key={index}
-                                        className="block w-full text-left px-4 py-2 hover:bg-[var(--faded-white-for-cards)]"
-                                    >
-                                        {action}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-
-                    <Link href="/profile" className="block">
-                        <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
-                        >
-                            User Privileges
-                        </button>
-                    </Link>
-
-                    <Link href="/directory" className="block">
-                        <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
-                        >
-                            Document Directory
-                        </button>
-                    </Link>
-
-                    <Link href="/home" className="block">
-                        <button
-                            className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-[var(--whitebg-color)] transition-colors duration-200 hover:bg-[var(--secondary-blue)]"
-                        >
-                            Announcements
-                        </button>
-                    </Link>
-
-                </div>
-            </section>
-
-            <section className="mt-10 text-center">
-                <div
-                    className="font-medium"
-                    style={{
-                        color: "var(--black)",
-                        fontFamily: "var(--primary-subheader-font-family)",
-                        fontWeight: "var(--primary-subheader-font-weight)",
-                        fontSize: "var(--primary-subheader-font-size)",
-                        letterSpacing: "var(--primary-subheader-letter-spacing)",
-                        lineHeight: "var(--primary-subheader-line-height)",
-                        fontStyle: "var(--primary-subheader-font-style)",
-                    }}
-                >
-                </div>
-            </section>
+              QUICK LINKS
+            </h1>
+          </div>
         </div>
-    );
+      </div>
+
+      <section className="mt-12 w-full max-w-xl shadow-md rounded-lg overflow-hidden">
+        <div className="bg-[var(--secondary-gold)] px-6 py-8 space-y-4">
+          <button className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]">
+            Important Files
+          </button>
+
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!isDropdownOpen)}
+              className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]"
+            >
+              Modify Documents
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute left-0 w-full mt-1 rounded-md shadow-lg border border-[var(--secondary-blue)] bg-white text-[var(--black)]">
+                {["Create", "Edit", "Delete"].map((action, index) => (
+                  <button
+                    key={index}
+                    className="block w-full text-left px-4 py-2 hover:bg-[var(--faded-white-for-cards)]"
+                  >
+                    {action}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link href="/profile" className="block">
+            <button className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]">
+              User Privileges
+            </button>
+          </Link>
+
+          <Link href="/directory" className="block">
+            <button className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]">
+              Document Directory
+            </button>
+          </Link>
+
+          <Link href="/announcements" className="block">
+            <button className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]">
+              Announcements
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-16 w-full max-w-xl bg-white rounded-lg shadow-md px-6 py-8 text-center">
+        <h3 className="text-3xl font-extrabold text-[var(--primary)] mb-4 tracking-wide">
+          SUPPORT OUR SOCIALS
+        </h3>
+        <p className="text-sm text-gray-700 mb-6">
+          Stay connected with HRDC! Follow us for updates, announcements, and community highlights.
+        </p>
+        <div className="flex justify-center space-x-16 text-5xl mt-8">
+          <a
+            href="https://www.instagram.com/thehrdc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-pink-600 hover:text-pink-700 transition transform hover:scale-110"
+          >
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <a
+            href="https://www.facebook.com/HRDCBzn#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-700 hover:text-blue-800 transition transform hover:scale-110"
+          >
+            <FontAwesomeIcon icon={faFacebookF} />
+          </a>
+        </div>
+      </section>
+    </div>
+  );
 }

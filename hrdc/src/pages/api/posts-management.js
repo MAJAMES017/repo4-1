@@ -3,7 +3,6 @@ import { firestore } from "../../firebase-config";
 
 export async function createPost(postData, userId) {
     try {
-        // Add post to Firestore
         const postsRef = collection(firestore, 'posts');
         const postToSave = {
             title: postData.title,
