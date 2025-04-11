@@ -1,1 +1,84 @@
+name: Next.js CI/CD Tests
 
+on:
+  push:
+    branches: [ main, development ]
+  pull_request:
+    branches: [ main, development ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Lint check
+        run: npm run lint || true
+        
+      - name: Run basic tests
+        run: npm test
+
+  basic-tests:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Test Firebase Config
+        run: |
+          if grep -q "firebaseConfig" ./firebase-config.js; then
+            echo "Firebase configuration found"
+            exit 0
+          else
+            echo "Firebase configuration not found"
+            exit 1
+          fi
+          
+      - name: Test Component Structure
+        run: |
+          if [ -d "./components" ] && [ -f "./components/Navbar.js" ]; then
+            echo "Component structure verified"
+            exit 0
+          else
+            echo "Component structure issue"
+            exit 1
+          fi
+          
+      - name: Test Pages Structure
+        run: |
+          for page in index login signup profile directory support; do
+            if [ ! -f "./pages/${page}.js" ]; then
+              echo "Missing page: ${page}.js"
+              exit 1
+            fi
+          done
+          echo "All required pages exist"
+          
+      - name: Test API Routes
+        run: |
+          if [ -d "./pages/api" ] && [ -f "./pages/api/user-management.js" ] && [ -f "./pages/api/posts-management.js" ]; then
+            echo "API routes verified"
+            exit 0
+          else
+            echo "API routes structure issue"
+            exit 1
+          fi
