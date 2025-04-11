@@ -5,30 +5,48 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  const { issue, email, message } = req.body;
+  // Extract request data
+  const { issue, email, message, requestType, dates, reason } = req.body;
 
-  if (!issue || !email || !message) {
+  let emailSubject = "";
+  let emailBody = "";
+
+  // Handle Support Ticket (Support.js)
+  if (issue && email && message) {
+    emailSubject = `New Support Ticket: ${issue}`;
+    emailBody = `<p><strong>Issue:</strong> ${issue}</p>
+                 <p><strong>Email:</strong> ${email}</p>
+                 <p><strong>Message:</strong> ${message}</p>`;
+  }
+  // Handle Schedule Request (Schedule.js)
+  else if (requestType && dates && reason) {
+    emailSubject = `New Schedule Request: ${requestType}`;
+    emailBody = `<p><strong>Request Type:</strong> ${requestType}</p>
+                 <p><strong>Dates:</strong> ${dates}</p>
+                 <p><strong>Reason:</strong> ${reason}</p>`;
+  }
+  // Reject invalid requests
+  else {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  // Configure nodemailer transporter
+  // Set up nodemailer transporter
   const transporter = nodemailer.createTransport({
-    service: "Gmail", // or use SMTP settings if not using Gmail
+    service: "Gmail", 
     auth: {
-      user: process.env.EMAIL_USER, // Set this in your .env file
-      pass: process.env.EMAIL_PASS, // Set this in your .env file
+      user: process.env.EMAIL_USER, 
+      pass: process.env.EMAIL_PASS, 
     },
   });
 
   try {
+    // Send email
     await transporter.sendMail({
       from: `"Support Team" <${process.env.EMAIL_USER}>`,
-      to: "hrdcticketing@gmail.com", // Replace with the recipient email
-      subject: `New Support Ticket: ${issue}`,
-      text: `Issue: ${issue}\nEmail: ${email}\nMessage: ${message}`,
-      html: `<p><strong>Issue:</strong> ${issue}</p>
-             <p><strong>Email:</strong> ${email}</p>
-             <p><strong>Message:</strong> ${message}</p>`,
+      to: "hrdcticketing@gmail.com", 
+      subject: emailSubject,
+      text: emailBody.replace(/<[^>]*>?/gm, ""), // Plain text version (removes HTML tags)
+      html: emailBody,
     });
 
     return res.status(200).json({ message: "Ticket sent successfully" });

@@ -24,7 +24,6 @@ export default function Schedule() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
       if (response.ok) {
         setStatus("success");
         event.target.reset();

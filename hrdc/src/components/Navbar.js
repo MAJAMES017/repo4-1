@@ -9,7 +9,6 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
 
-
   const menuItems = [
     { label: "HOME", href: "/" },
     { label: "DOCUMENTS", href: "/directory" },
