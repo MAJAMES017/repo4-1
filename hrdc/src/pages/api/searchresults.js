@@ -58,7 +58,6 @@ export default function SearchResults() {
 
   return (
     <div>
-      {/* Search Bar Container */}
       <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
         <form onSubmit={handleSearch} className="mt-3 flex items-center">
           <input
@@ -82,7 +81,6 @@ export default function SearchResults() {
         </form>
       </div>
 
-      {/* Container for files/folders */}
       <div
         style={{
           marginTop: "20px",
@@ -98,7 +96,6 @@ export default function SearchResults() {
           marginBottom: "60px",
         }}
       >
-        {/* Results/Files aand X button */}
         <div
           style={{
             display: "flex",
@@ -151,11 +148,9 @@ export default function SearchResults() {
                     alignItems: "center",
                   }}
                 >
-                  {/* file name */}
                   <span style={{ cursor: "pointer" }} onClick={() => toggleFile(file)}>
                     {file.name}
                   </span>
-                  {/* full button and dropdown */}
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <button
                       onClick={(e) => openFullWindow(file, e)}

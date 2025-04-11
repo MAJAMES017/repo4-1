@@ -1,228 +1,127 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
-import { isAdmin } from "./api/user-management";
-import { createPost, getPosts, updatePost, deletePost } from "./api/posts-management";
-import Navbar from "../components/Navbar";
+import { getUserRole, USER_ROLES } from "./api/user-management";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [newPost, setNewPost] = useState({ title: "", text: "" });
-  const [editingPost, setEditingPost] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isUserAdmin, setIsUserAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
-  // Fetch posts and check admin status
   useEffect(() => {
-    const fetchPostsAndCheckAdmin = async () => {
-      try {
-        setLoading(true);
-        const fetchedPosts = await getPosts();
-        setPosts(fetchedPosts);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setUser(user);
       if (user) {
-        try {
-          const adminStatus = await isAdmin(user.uid);
-          setCurrentUser(user);
-          setIsUserAdmin(adminStatus);
-        } catch (error) {
-          console.error("Error checking admin status:", error);
-          setIsUserAdmin(false);
-        }
-      } else {
-        setCurrentUser(null);
-        setIsUserAdmin(false);
+        const role = await getUserRole(user.uid);
+        setUserRole(role);
       }
-
-      fetchPostsAndCheckAdmin();
     });
-
     return () => unsubscribe();
   }, []);
 
-  // Handle post submission
-  const handlePost = async () => {
-    if (!isUserAdmin) {
-      alert("Only admins can create posts!");
-      return;
-    }
-
-    if (!newPost.title.trim() && !newPost.text.trim()) {
-      alert("Please enter post content");
-      return;
-    }
-
-    try {
-      if (editingPost) {
-        // Update existing post
-        await updatePost(editingPost.id, {
-          title: newPost.title,
-          text: newPost.text,
-          date: new Date().toISOString() 
-        });
-
-        // Refresh posts
-        const updatedPosts = await getPosts();
-        setPosts(updatedPosts);
-      } else {
-        // Create new post
-        const createdPost = await createPost(
-          {
-            title: newPost.title,
-            text: newPost.text,
-            date: new Date().toISOString()
-          },
-          currentUser.uid
-        );
-        setPosts([createdPost, ...posts]);
-      }
-
-      // Reset form
-      setNewPost({ title: "", text: "" });
-      setEditingPost(null);
-      setShowForm(false);
-    } catch (error) {
-      alert("Failed to create/update post");
-    }
-  };
-
-  // Handle post edit
-  const handleEdit = (post) => {
-    setNewPost({
-      title: post.title,
-      text: post.text,
-    });
-    setEditingPost(post);
-    setShowForm(true);
-  };
-
-  // Handle post deletion
-  const handleDelete = async (postId) => {
-    if (!isUserAdmin) {
-      alert("Only admins can delete posts!");
-      return;
-    }
-
-    try {
-      await deletePost(postId);
-      setPosts(posts.filter((post) => post.id !== postId));
-    } catch (error) {
-      alert("Failed to delete post");
-    }
-  };
+  const isAdmin = userRole === USER_ROLES.ADMIN;
 
   return (
-      <div className="min-h-screen flex flex-col bg-gray-100 font-sans">
-        <Navbar/>
+    <div className="min-h-screen flex flex-col items-center bg-[var(--whitebg-color)] text-[var(--black)]">
 
-        {/* Hero Section */}
-        <div className="relative w-full h-64 md:h-96">
-          <Image
-              src="/hrdc.png"
-              alt="Filing Cabinets"
-              fill
-              className="object-cover object-center"
-              priority
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-white/60 w-[550px] h-[150px] flex items-center justify-center">
-              <h1 className="text-[44px] font-bold text-black"
-                  style={{fontFamily: '"Gotham", Helvetica'}}
-              >
-                ANNOUNCEMENTS
-              </h1>
-            </div>
+      <div className="relative w-full h-64 md:h-96">
+        <Image
+          src="/bzn.jpg"
+          alt="Quick Links Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <div className="bg-white/60 backdrop-brightness-75 w-[550px] h-[150px] flex items-center justify-center">
+            <h1
+              className="text-[44px] font-bold text-black"
+              style={{ fontFamily: '"Gotham", Helvetica' }}
+            >
+              QUICK LINKS
+            </h1>
           </div>
         </div>
-
-        {/* Admin-only "Create Document" button */}
-        {isUserAdmin && (
-            <button
-                onClick={() => setShowForm(true)}
-                className="fixed bottom-6 right-6 bg-green-700 text-white rounded-full w-16 h-16 text-3xl flex items-center justify-center shadow-lg hover:bg-green-800 transition duration-200"
-                title="Create Document"
-            >
-              +
-            </button>
-        )}
-
-        {/* Post Form */}
-        {showForm && (
-            <div className="p-6 bg-white shadow-md rounded-lg mx-4 my-4">
-              <input
-                  type="text"
-                  className="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Post Title"
-                  value={newPost.title}
-                  onChange={(e) => setNewPost({...newPost, title: e.target.value})}
-              />
-              <textarea
-                  className="w-full p-4 mt-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Write your post..."
-                  value={newPost.text}
-                  onChange={(e) => setNewPost({...newPost, text: e.target.value})}
-              ></textarea>
-              <button
-                  onClick={handlePost}
-                  className="mt-4 px-6 py-3 bg-green-700 text-white rounded-lg shadow-md hover:bg-green-800"
-              >
-                {editingPost !== null ? "Update Post" : "Post"}
-              </button>
-            </div>
-        )}
-
-        {/* Posts */}
-        <div className="p-6 space-y-6 flex-grow">
-          {posts.map((post) => (
-              <div key={post.id} className="p-6 bg-white shadow-lg rounded-lg border border-gray-300">
-                <div
-                    className="p-6 bg-white shadow-lg rounded-xl border border-gray-300 w-full max-w-2xl mx-auto text-center">
-                  <h2 className="text-4xl font-bold text-green-800">{post.title}</h2>
-                  <p className="text-gray-500 text-sm mt-1">
-                    {post.createdAt ? new Date(post.createdAt.toDate()).toLocaleDateString() : "Date unavailable"}
-                  </p>
-
-
-                  <hr className="my-4 border-t-2 border-gray-300 w-3/4 mx-auto"/>
-                  <p className="text-gray-800 text-lg leading-relaxed">{post.text}</p>
-
-                  {isUserAdmin && (
-                      <div className="flex justify-center space-x-4 mt-4">
-                        <button
-                            onClick={() => handleEdit(post)}
-                            className="px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600"
-                        >
-                          Edit
-                        </button>
-                        <button
-                            onClick={() => handleDelete(post.id)}
-                            className="px-4 py-2 rounded text-white bg-red-500 hover:bg-red-600"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                  )}
-                </div>
-              </div>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div className="w-full bg-gray-900 text-white text-center py-4 mt-auto"
-             style={{backgroundColor: "var(--secondary-blue)"}}>
-          <p className="text-[10px]">&copy; 2025 HRDC, INC. ALL RIGHTS RESERVED</p>
-        </div>
       </div>
+
+      <section className="mt-12 w-full max-w-xl shadow-md rounded-lg overflow-hidden">
+        <div className="bg-[var(--secondary-gold)] px-6 py-8 space-y-4">
+          <button className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]">
+            Important Files
+          </button>
+
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!isDropdownOpen)}
+              className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]"
+            >
+              Modify Documents
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute left-0 w-full mt-1 rounded-md shadow-lg border border-[var(--secondary-blue)] bg-white text-[var(--black)]">
+                {["Create", "Edit", "Delete"].map((action, index) => (
+                  <button
+                    key={index}
+                    className="block w-full text-left px-4 py-2 hover:bg-[var(--faded-white-for-cards)]"
+                  >
+                    {action}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Link href="/profile" className="block">
+            <button className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]">
+              User Privileges
+            </button>
+          </Link>
+
+          <Link href="/directory" className="block">
+            <button className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]">
+              Document Directory
+            </button>
+          </Link>
+
+          <Link href="/announcements" className="block">
+            <button className="block w-full py-2 rounded-lg text-lg font-medium bg-[var(--primary)] text-white transition hover:bg-[var(--secondary-blue)]">
+              Announcements
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      <section className="mt-16 w-full max-w-xl bg-white rounded-lg shadow-md px-6 py-8 text-center">
+        <h3 className="text-3xl font-extrabold text-[var(--primary)] mb-4 tracking-wide">
+          SUPPORT OUR SOCIALS
+        </h3>
+        <p className="text-sm text-gray-700 mb-6">
+          Stay connected with HRDC! Follow us for updates, announcements, and community highlights.
+        </p>
+        <div className="flex justify-center space-x-16 text-5xl mt-8">
+          <a
+            href="https://www.instagram.com/thehrdc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-pink-600 hover:text-pink-700 transition transform hover:scale-110"
+          >
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <a
+            href="https://www.facebook.com/HRDCBzn#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-700 hover:text-blue-800 transition transform hover:scale-110"
+          >
+            <FontAwesomeIcon icon={faFacebookF} />
+          </a>
+        </div>
+      </section>
+    </div>
   );
 }

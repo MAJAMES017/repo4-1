@@ -12,7 +12,6 @@ import { auth } from "../firebase-config";
 import { createUserProfile, getUserRole } from "./api/user-management";
 import Link from "next/link";
 import Image from "next/image";
-import Navbar from "../components/Navbar";
 
 export default function Login() {
     const [email, setEmail] = useState("");

@@ -9,7 +9,13 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const menuItems = ["HOME", "DOCUMENTS", "SUPPORT", "SCHEDULE"];
+  const menuItems = [
+    { label: "HOME", href: "/" },
+    { label: "DOCUMENTS", href: "/directory" },
+    { label: "SUPPORT", href: "/support" },
+    { label: "SCHEDULE", href: "/schedule" },
+    { label: "ANNOUNCEMENTS", href: "/announcements" },
+  ];
 
   return (
     <nav className="w-full relative bg-[var(--primary)] text-white px-6 py-4">
@@ -28,29 +34,20 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* navbar items */}
         <div className="flex items-center">
           <div className="hidden lg:flex space-x-8 text-lg font-semibold mr-8">
-            {menuItems.map((label, idx) => (
+            {menuItems.map(({ label, href }) => (
               <div
-                key={idx}
+                key={label}
                 className="hover:bg-[var(--secondary-blue)] rounded transition-colors duration-200"
               >
-                <Link
-                  href={
-                    label === "HOME"
-                      ? "/"
-                      : (label === "DOCUMENTS" ? "/directory" : `/${label.toLowerCase()}`)
-                  }
-                  className="block px-2 py-1"
-                >
+                <Link href={href} className="block px-2 py-1">
                   {label}
                 </Link>
               </div>
             ))}
           </div>
 
-          {/* login and hamburger */}
           <div className="flex items-center ml-[10px] space-x-4">
             <div className="hover:bg-[var(--secondary-blue)] rounded-full transition-colors duration-200 p-2">
               <Link href="/login">
@@ -64,7 +61,6 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* hb icon */}
             <div className="lg:hidden">
               <button
                 onClick={toggleMenu}
@@ -89,26 +85,19 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* dropdown */}
       {isOpen && (
         <div className="absolute top-full left-0 w-full z-50 bg-[var(--primary)] text-white flex flex-col items-center py-4 lg:hidden">
-          {menuItems.map((label, idx, arr) => (
+          {menuItems.map(({ label, href }, idx) => (
             <div
-              key={idx}
+              key={label}
               className={`w-full hover:bg-[var(--secondary-blue)] transition-colors duration-200 ${
-                idx < arr.length - 1
+                idx < menuItems.length - 1
                   ? "border-b border-white border-opacity-30"
                   : ""
               }`}
             >
               <Link
-                href={
-                  label === "HOME"
-                  ? "/"
-                  : label === "DOCUMENTS"
-                  ? "/directory"
-                  : `/${label.toLowerCase()}`
-                }
+                href={href}
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-2 text-center text-white"
               >

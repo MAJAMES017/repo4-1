@@ -11,14 +11,13 @@ export async function createUserProfile(user, role = USER_ROLES.EMPLOYEE) {
         const userRef = doc(firestore, 'users', user.uid);
         const userDoc = await getDoc(userRef);
 
-        // Only create profile if it doesn't exist
         if (!userDoc.exists()) {
             await setDoc(userRef, {
                 email: user.email,
                 displayName: user.displayName || user.email.split('@')[0],
                 role: role,
                 createdAt: new Date(),
-                isVerified: false // Add a verification flag
+                isVerified: false
             });
         }
     } catch (error) {
@@ -66,7 +65,6 @@ export async function isAdmin(userId) {
 
 export async function addAdminByEmail(adminEmail) {
     try {
-        // Find user by email
         const usersRef = collection(firestore, 'users');
         const q = query(usersRef, where('email', '==', adminEmail));
         const querySnapshot = await getDocs(q);
