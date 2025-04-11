@@ -53,7 +53,6 @@ export default function Support() {
             </h1>
           </div>
         </div>
-      </div>
 
       <div className="bg-[var(--primary)] text-white py-4 px-6 rounded-t-lg text-center w-full max-w-3xl mt-12">
         <h2 className="text-2xl font-bold tracking-wide">TECHNICAL DIFFICULTIES?</h2>
