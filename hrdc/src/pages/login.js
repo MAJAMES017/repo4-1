@@ -107,6 +107,16 @@ export default function Login() {
                             <div className="mb-4">
                                 Currently signed in as: <strong>{currentUser.email}</strong>
                             </div>
+
+                            {/* Add Profile Link */}
+                            <Link
+                                href="/profile"
+                                className="block w-full text-white py-2 rounded-md mb-4 hover:bg-[var(--secondary-blue)]"
+                                style={{backgroundColor: "var(--primary)"}}
+                            >
+                                My Profile
+                            </Link>
+
                             <button
                                 onClick={handleSignOut}
                                 className="w-full text-white py-2 rounded-md mb-4 hover:bg-[var(--secondary-blue)]"
